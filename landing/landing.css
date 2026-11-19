@@ -1,4 +1,4 @@
-/* gym.ilmal.se landing. Design system subset + landing styles (design-ref/Landing.dc.html) + responsive/a11y additions at the end. */
+/* rep.ilmal.se landing. Design system subset + landing styles (design-ref/Landing.dc.html) + responsive/a11y additions at the end. */
 @font-face{font-family:'Inter';font-weight:100 900;font-style:normal;font-display:swap;src:url(/fonts/inter-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Inter';font-weight:100 900;font-style:normal;font-display:swap;src:url(/fonts/inter-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Inter Tight';font-weight:100 900;font-style:normal;font-display:swap;src:url(/fonts/inter-tight-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -29,7 +29,7 @@ body{margin:0;background:#F3F2EF}
 .ic-star-fill{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' stroke='black' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z'/%3E%3C/svg%3E")}
 .ic-pause-c{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-18 0a9 9 0 1 1 18 0zM10 9v6M14 9v6'/%3E%3C/svg%3E")}
 .ic-ban{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-18 0a9 9 0 1 1 18 0zM5.6 5.6l12.8 12.8'/%3E%3C/svg%3E")}
-/* Landing page — gym.ilmal.se */
+/* Landing page — rep.ilmal.se */
 .lp{container-type:inline-size;container-name:lp;background:#F3F2EF;color:#121212;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;width:100%;overflow:hidden}
 .lp *{box-sizing:border-box}
 .lp h1,.lp h2,.lp h3,.lp p{margin:0}

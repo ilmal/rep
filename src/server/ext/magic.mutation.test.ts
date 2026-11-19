@@ -202,7 +202,7 @@ describe('request: delivery', () => {
     expect(s.url).toBe('https://api.resend.com/emails');
     expect(s.init.method).toBe('POST');
     expect(s.init.headers).toEqual({ authorization: 'Bearer re_key', 'content-type': 'application/json' });
-    expect(s.body.from).toBe('Rep <gym@ilmal.se>');
+    expect(s.body.from).toBe('Rep <rep@ilmal.se>');
     expect(s.body.to).toEqual(['who@b.se']);
     expect(s.body.subject).toBe('Your sign-in link');
     const stored = (m.db.query('SELECT hash FROM magic_links').get() as any).hash;

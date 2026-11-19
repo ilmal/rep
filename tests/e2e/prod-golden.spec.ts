@@ -1,4 +1,4 @@
-// Run against the LIVE deployment:  E2E_BASE=https://gym.ilmal.se/app/ bunx playwright test tests/e2e/prod-golden.spec.ts
+// Run against the LIVE deployment:  E2E_BASE=https://rep.ilmal.se/app/ bunx playwright test tests/e2e/prod-golden.spec.ts
 // Creates one throwaway anonymous account and deletes it at the end.
 import { test, expect, readState } from './fixtures';
 

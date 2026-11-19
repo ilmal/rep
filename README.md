@@ -4,7 +4,7 @@
 
 **A gym tracker that thinks in weeks, works without a signal, and takes direction from your AI coach.**
 
-[**Open the app**](https://gym.ilmal.se/app/) &nbsp;·&nbsp; [Website](https://gym.ilmal.se) &nbsp;·&nbsp; [Connect a coach](#a-coach-that-can-actually-change-things) &nbsp;·&nbsp; [Run it yourself](#run-it)
+[**Open the app**](https://rep.ilmal.se/app/) &nbsp;·&nbsp; [Website](https://rep.ilmal.se) &nbsp;·&nbsp; [Connect a coach](#a-coach-that-can-actually-change-things) &nbsp;·&nbsp; [Run it yourself](#run-it)
 
 <br>
 
@@ -178,4 +178,4 @@ API tokens are stored hashed; passwords use argon2id (`Bun.password`).
 
 ---
 
-<div align="center"><sub>Made for lifting heavy things on a schedule that survives real life. &nbsp;·&nbsp; <a href="https://gym.ilmal.se">gym.ilmal.se</a></sub></div>
+<div align="center"><sub>Made for lifting heavy things on a schedule that survives real life. &nbsp;·&nbsp; <a href="https://rep.ilmal.se">rep.ilmal.se</a></sub></div>

@@ -3,4 +3,4 @@ Allow: /
 Disallow: /app/
 Disallow: /api/
 
-Sitemap: https://gym.ilmal.se/sitemap.xml
+Sitemap: https://rep.ilmal.se/sitemap.xml

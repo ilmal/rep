@@ -23,7 +23,7 @@ describe('createMailer', () => {
     expect(m.provider).toBeNull();
     expect(await m.send(mail)).toBe(false);
   });
-  test('SES: signed v2 request to the regional endpoint, default sender gym@ilmal.se', async () => {
+  test('SES: signed v2 request to the regional endpoint, default sender rep@ilmal.se', async () => {
     let seen: { url: string; init: RequestInit } | null = null;
     const f = (async (url: string, init: RequestInit) => { seen = { url, init }; return new Response('{}', { status: 200 }); }) as unknown as typeof fetch;
     const m = createMailer({ SES_ACCESS_KEY_ID: 'AK', SES_SECRET_ACCESS_KEY: 'SK' }, f, () => Date.UTC(2026, 10, 18, 12));

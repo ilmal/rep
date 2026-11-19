@@ -1,14 +1,14 @@
 // Transactional mail for the magic-link sign-in. Providers, first configured wins:
 //   1. Amazon SES v2 (SigV4 over fetch + WebCrypto, no SDK):  SES_ACCESS_KEY_ID, SES_SECRET_ACCESS_KEY, [SES_REGION=eu-north-1]
 //   2. Resend:                                                  RESEND_API_KEY
-// Sender: MAIL_FROM (default "Rep <gym@ilmal.se>"). The sending domain must be a verified SES identity.
+// Sender: MAIL_FROM (default "Rep <rep@ilmal.se>"). The sending domain must be a verified SES identity.
 import { createHash, createHmac } from 'node:crypto';
 
 export interface MailEnv { [k: string]: string | undefined }
 export interface Mail { to: string; subject: string; text: string; html: string }
 export interface Mailer { provider: 'ses' | 'resend' | null; send(m: Mail): Promise<boolean> }
 
-export const DEFAULT_FROM = 'Rep <gym@ilmal.se>';
+export const DEFAULT_FROM = 'Rep <rep@ilmal.se>';
 
 const hex = (b: Buffer | Uint8Array) => Buffer.from(b).toString('hex');
 const sha256 = (s: string) => createHash('sha256').update(s).digest('hex');

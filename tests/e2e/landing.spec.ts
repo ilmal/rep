@@ -31,7 +31,7 @@ test.describe('landing', () => {
     await expect(page.locator('.lp-dark .lp-trio figcaption')).toHaveText(['Set', 'Rest', 'Done']);
     await expect(page.locator('.lp-chip')).toHaveCount(3);
     await expect(page.locator('.lp-float')).toHaveCount(2);
-    await expect(page.locator('footer')).toContainText('gym.ilmal.se · © 2026 ilmal');
+    await expect(page.locator('footer')).toContainText('rep.ilmal.se · © 2026 ilmal');
     await expect(page.locator('.lp-q')).toHaveCount(6);
     expect(e).toEqual([]);
   });
@@ -42,7 +42,7 @@ test.describe('landing', () => {
     expect(await ctas.count()).toBeGreaterThanOrEqual(5);
     for (const h of await ctas.evaluateAll((a) => a.map((x) => x.getAttribute('href')))) expect(h).toBe('/app');
     await page.getByRole('button', { name: 'Computer' }).click();
-    await expect(page.locator('img[alt="QR code for gym.ilmal.se/app"]')).toBeVisible();
+    await expect(page.locator('img[alt="QR code for rep.ilmal.se/app"]')).toBeVisible();
   });
 
   test('nav anchors scroll to their sections', async ({ page }) => {
@@ -105,9 +105,9 @@ test.describe('landing', () => {
     await go(page);
     const meta = (sel: string) => page.locator(sel).getAttribute('content');
     expect((await meta('meta[name=description]'))!.length).toBeGreaterThan(50);
-    await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', 'https://gym.ilmal.se/');
+    await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', 'https://rep.ilmal.se/');
     expect(await meta('meta[property="og:title"]')).toBeTruthy();
-    expect(await meta('meta[property="og:image"]')).toBe('https://gym.ilmal.se/og-image.png');
+    expect(await meta('meta[property="og:image"]')).toBe('https://rep.ilmal.se/og-image.png');
     expect(await meta('meta[name="twitter:card"]')).toBe('summary_large_image');
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
@@ -116,11 +116,11 @@ test.describe('landing', () => {
     const types = ld.map((x: any) => x['@type']);
     expect(types).toEqual(['SoftwareApplication', 'FAQPage']);
     expect(ld[1].mainEntity).toHaveLength(6);
-    expect(ld[1].mainEntity[0].acceptedAnswer.text).toBe('Yes. Gym Tracker is a free web app at gym.ilmal.se.');
+    expect(ld[1].mainEntity[0].acceptedAnswer.text).toBe('Yes. Gym Tracker is a free web app at rep.ilmal.se.');
     const robots = await request.get(ORIGIN + 'robots.txt');
-    expect(await robots.text()).toContain('Sitemap: https://gym.ilmal.se/sitemap.xml');
+    expect(await robots.text()).toContain('Sitemap: https://rep.ilmal.se/sitemap.xml');
     const sm = await request.get(ORIGIN + 'sitemap.xml');
-    expect(await sm.text()).toContain('<loc>https://gym.ilmal.se/</loc>');
+    expect(await sm.text()).toContain('<loc>https://rep.ilmal.se/</loc>');
     for (const p of ['og-image.png', 'favicon.ico', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png']) {
       expect((await request.get(ORIGIN + p)).status(), p).toBe(200);
     }

@@ -112,7 +112,11 @@ export default function build(db: Db, opts: MagicOpts = {}): Hono {
     const token = randomBytes(32).toString('base64url');
     q.prune.run(now - 24 * 3600 * 1000);
     q.insert.run(sha(token), email, now, now + TOKEN_TTL_MS);
-    const base = (process.env.PUBLIC_URL ?? new URL(c.req.url).origin).replace(/\/+$/, '');
+    // The link must open on the origin the app was used from (an installed PWA's storage is per-origin). Only hosts the operator
+    // listed in PUBLIC_HOSTS are honoured (never a raw Host header: that would allow link poisoning); otherwise PUBLIC_URL.
+    const host = (c.req.header('x-forwarded-host') ?? c.req.header('host') ?? '').split(',')[0]!.trim().toLowerCase();
+    const allowed = (process.env.PUBLIC_HOSTS ?? '').split(',').map((h) => h.trim().toLowerCase()).filter(Boolean);
+    const base = (allowed.includes(host) ? `https://${host}` : process.env.PUBLIC_URL ?? new URL(c.req.url).origin).replace(/\/+$/, '');
     const link = `${base}/app/signin?token=${token}`;
     if (!configured) {
       console.log(`[magic] sign-in link for ${email}: ${link}`);

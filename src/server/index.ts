@@ -39,7 +39,14 @@ export function buildApp(dbPath = process.env.GYM_DB ?? './data/gym.db') {
   app.get('/app/*', async (c, next) => { c.header('Cache-Control', 'no-cache'); return serveStatic({ path: `${DIST}/index.html` })(c, next); });
 
   // ── Landing site at / (static, SEO). Anyone who has used the app (rep_seen cookie) goes straight to the app, never the marketing page.
-  const toApp = (c: any, next: any) => { if (hasSeen(c)) { c.header('Cache-Control', 'private, no-store'); return c.redirect('/app/', 302); } c.header('Vary', 'Cookie'); return next(); };
+  // Old hostnames keep serving the app (installed PWAs are tied to their origin) but their marketing page forwards to the canonical host.
+  const canonical = (process.env.CANONICAL_HOST ?? '').toLowerCase();
+  const toApp = (c: any, next: any) => {
+    if (hasSeen(c)) { c.header('Cache-Control', 'private, no-store'); return c.redirect('/app/', 302); }
+    const host = (c.req.header('x-forwarded-host') ?? c.req.header('host') ?? '').split(',')[0].trim().toLowerCase();
+    if (canonical && host && host !== canonical && new URL(c.req.url).pathname === '/') return c.redirect(`https://${canonical}/`, 301);
+    c.header('Vary', 'Cookie'); return next();
+  };
   app.use('/', toApp);
   app.use('/index.html', toApp);
   // static landing assets: fonts/images are immutable-ish (30d); css/js/html revalidate daily so a deploy shows up fast
