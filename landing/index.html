@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gym Tracker — train by the week</title>
+<meta name="description" content="Gym Tracker is a free web app that plans each workout around your weekly goal, your time and the gym you are in. Rate exercises in three taps, works offline, no app store.">
+<meta name="theme-color" content="#F3F2EF">
+<link rel="canonical" href="https://gym.ilmal.se/">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gym Tracker">
+<meta property="og:title" content="Gym Tracker — train by the week">
+<meta property="og:description" content="Set a weekly goal, train whenever it suits you, and rate each exercise in three taps. Free web app, works offline.">
+<meta property="og:url" content="https://gym.ilmal.se/">
+<meta property="og:image" content="https://gym.ilmal.se/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gym Tracker: train by the week, not the calendar.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gym Tracker — train by the week">
+<meta name="twitter:description" content="Set a weekly goal, train whenever it suits you, and rate each exercise in three taps. Free web app, works offline.">
+<meta name="twitter:image" content="https://gym.ilmal.se/og-image.png">
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/landing.css">
+<noscript><style>.lp-q p[hidden]{display:block!important}.lp-panel[hidden]{display:contents!important}</style></noscript>
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Gym Tracker",
+  "url": "https://gym.ilmal.se/",
+  "description": "Gym Tracker is a free web app that plans each workout around your weekly goal, your time and the gym you are in. Rate exercises in three taps, works offline, no app store.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web, iOS, Android",
+  "image": "https://gym.ilmal.se/og-image.png",
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "USD"
+  },
+  "publisher": {
+   "@type": "Organization",
+   "name": "ilmal"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "Is it free?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Gym Tracker is a free web app at gym.ilmal.se."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Why a web app and not the App Store?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Nothing to download or update. Add it to your home screen and it behaves like an app: full screen, offline, its own icon."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Do I need an account?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "No. You can start right away and your data stays on your phone. Add an email later to back it up and use it on more than one device."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Does it work without signal?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Logging, timers and swaps all work offline. Changes sync when you’re back online."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Does it track my location?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Only when you start a session, to pick the right gym. Never in the background. You can turn it off and pick gyms by hand."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can I get my data out?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Any time. Export every session, set, timer and rating as CSV or JSON from Settings."
+    }
+   }
+  ]
+ }
+]
+</script>
+</head>
+<body>
+<div class="lp">
+<a class="lp-skip" href="#main">Skip to content</a>
+<div class="lp-wrap">
+<header class="lp-nav">
+<a class="lp-brand" href="#top"><img src="/img/app-icon.png" width="36" height="36" alt="">Gym Tracker</a>
+<nav class="lp-links" aria-label="Sections">
+<a href="#how">How it works</a><a href="#features">Features</a><a href="#install">Install</a><a href="#faq">FAQ</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 10px">
+<a class="lp-btn ink sm" href="/app">Open the app</a>
+<button class="lp-menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="lp-drop"><span class="ic ic-list" aria-hidden="true"></span></button>
+</div>
+</header>
+<nav class="lp-drop" id="lp-drop" aria-label="Sections (menu)">
+<a href="#how">How it works</a><a href="#features">Features</a><a href="#install">Install</a><a href="#faq">FAQ</a>
+<a class="lp-btn ink" href="/app" style="margin-top: 6px">Open the app</a>
+</nav>
+</div>
+<main id="main">
+<div class="lp-wrap">
+<section class="lp-hero" id="top">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span class="lp-eyebrow" style="align-self: flex-start">Free web app · no app store needed</span>
+<h1>Train by the week, not the calendar.</h1>
+<p class="lp-lead">Set a weekly goal, train whenever it suits you, and rate each exercise in three taps. Your next session adapts to your time, your energy and the gym you're standing in.</p>
+<div class="lp-ctas">
+<a class="lp-btn accent" href="/app">Open the app <span class="ic ic-arrow-right" aria-hidden="true"></span></a>
+<a class="lp-btn ghost" href="#install"><span class="ic ic-download" aria-hidden="true"></span>Install on your phone</a>
+</div>
+<div class="lp-trust"><span><i></i>Works offline in the gym</span><span><i></i>Your data, exportable</span><span><i></i>Free</span></div>
+</div>
+<div class="lp-stage" aria-hidden="true">
+<div class="lp-phone p1"><img src="/img/phone-today.webp" width="780" height="1688" alt="" fetchpriority="high"></div>
+<div class="lp-phone p2"><img src="/img/phone-set.webp" width="780" height="1688" alt=""></div>
+<div class="lp-float" style="left: 0; bottom: 60px"><span class="dot" style="background: #DDF3E5; color: #146B3A"><span class="ic ic-arrow-up sm"></span></span><span>Next time<br><b>85 kg × 6</b></span></div>
+<div class="lp-float" style="right: 0; top: 6px"><span class="dot" style="background: #FF5A1F">2</span><span>This week<br><b>2 / 4</b></span></div>
+</div>
+</section>
+</div>
+
+<section class="lp-sec" id="how" style="padding-top: 0">
+<div class="lp-wrap">
+<span class="lp-kicker">How it works</span>
+<h2 class="lp-h2" style="margin-top: 10px; max-width: 760px">No schedule to fall behind on.</h2>
+<div class="lp-steps">
+<div class="lp-card"><span class="lp-num">1</span><h3>Pick a weekly goal</h3><p class="lp-sub">Four sessions is the default. Sessions roll 1 → 2 → 3 → 4 → 1, each one a focus area like Upper body or Prehab.</p></div>
+<div class="lp-card"><span class="lp-num">2</span><h3>Train when it suits you</h3><p class="lp-sub">Open the app at the gym. It knows where you are, what equipment is there and how long you've got.</p></div>
+<div class="lp-card"><span class="lp-num">3</span><h3>Rate, and it adapts</h3><p class="lp-sub">Too light, just right or too heavy. Next time's weight, reps and sets follow from what you tell it.</p></div>
+</div>
+</div>
+</section>
+
+<section class="lp-sec" id="features" style="padding-top: 0">
+<div class="lp-wrap">
+<span class="lp-kicker">Features</span>
+<h2 class="lp-h2" style="margin-top: 10px; max-width: 760px">Built for real gym sessions.</h2>
+<div class="lp-feats">
+<div class="lp-card"><span class="lp-ftile"><span class="ic ic-target lg" aria-hidden="true"></span></span><h3>Weekly counter</h3><p class="lp-sub">A simple 2/4 that resets on Monday. Extra sessions count too, and nothing nags you about missed days.</p></div>
+<div class="lp-card"><span class="lp-ftile g"><span class="ic ic-arrow-up lg" aria-hidden="true"></span></span><h3>Progress that follows you</h3><p class="lp-sub">Per-exercise feedback on effort, weight and volume sets the next target automatically.</p></div>
+<div class="lp-card"><span class="lp-ftile b"><span class="ic ic-clock lg" aria-hidden="true"></span></span><h3>Fits your time</h3><p class="lp-sub">Set 60 minutes and the session fits it. Long warm-up? Rest gets trimmed first, and you can always undo.</p></div>
+<div class="lp-card"><span class="lp-ftile k"><span class="ic ic-pin lg" aria-hidden="true"></span></span><h3>Knows your gym</h3><p class="lp-sub">Map each gym's equipment once. GPS picks the gym, and you'll never get an exercise it can't do.</p></div>
+<div class="lp-card"><span class="lp-ftile"><span class="ic ic-swap lg" aria-hidden="true"></span></span><h3>One-tap swaps</h3><p class="lp-sub">Rack taken? Get the three best alternatives for the same muscles, available right here.</p></div>
+<div class="lp-card"><span class="lp-ftile g"><span class="ic ic-wifi-off lg" aria-hidden="true"></span></span><h3>Works offline</h3><p class="lp-sub">Basement gym with no signal? Everything works and syncs when you're back online.</p></div>
+</div>
+</div>
+</section>
+
+<section class="lp-sec lp-dark" aria-labelledby="gym-h">
+<div class="lp-wrap lp-show">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<span class="lp-kicker">In the gym</span>
+<h2 class="lp-h2" id="gym-h">Only what you need, when you need it.</h2>
+<ul class="lp-list">
+<li><span class="lp-check"><span class="ic ic-check sm" aria-hidden="true"></span></span><span><b>During a set</b>Weight, reps and one big Done button.</span></li>
+<li><span class="lp-check"><span class="ic ic-check sm" aria-hidden="true"></span></span><span><b>Resting</b>A countdown that starts on its own, plus what's next.</span></li>
+<li><span class="lp-check"><span class="ic ic-check sm" aria-hidden="true"></span></span><span><b>After the session</b>Your week, your time and next session's targets.</span></li>
+</ul>
+</div>
+<div class="lp-trio">
+<figure><div class="lp-phone"><img src="/img/phone-set.webp" width="780" height="1688" loading="lazy" decoding="async" alt="Set screen with large weight and reps controls"></div><figcaption>Set</figcaption></figure>
+<figure><div class="lp-phone"><img src="/img/phone-rest.webp" width="780" height="1688" loading="lazy" decoding="async" alt="Rest countdown"></div><figcaption>Rest</figcaption></figure>
+<figure><div class="lp-phone"><img src="/img/phone-summary.webp" width="780" height="1688" loading="lazy" decoding="async" alt="Session summary"></div><figcaption>Done</figcaption></figure>
+</div>
+</div>
+</section>
+
+<section class="lp-sec lp-light" aria-labelledby="lib-h">
+<div class="lp-wrap lp-split">
+<div class="lp-phone"><img src="/img/phone-library.webp" width="780" height="1688" loading="lazy" decoding="async" alt="Exercise library list with favourites, paused and banned"></div>
+<div style="display: flex; flex-direction: column; gap: 22px">
+<span class="lp-kicker">Your exercises, your rules</span>
+<h2 class="lp-h2" id="lib-h">Get the exercises you actually like.</h2>
+<p class="lp-lead">Browse 69 exercises, each tagged with muscles, equipment and difficulty. Tell the app what you feel good about.</p>
+<div class="lp-chips"><span class="lp-chip fav"><span class="ic ic-star-fill sm" aria-hidden="true"></span>Favourite: picked first</span><span class="lp-chip pause"><span class="ic ic-pause-c sm" aria-hidden="true"></span>Pause: a break for a while</span><span class="lp-chip ban"><span class="ic ic-ban sm" aria-hidden="true"></span>Ban: never again</span></div>
+<ul class="lp-list">
+<li><span class="lp-check"><span class="ic ic-check sm" aria-hidden="true"></span></span><span>Something hurts mid-set? Go lighter, swap or pause it for two weeks in two taps.</span></li>
+<li><span class="lp-check"><span class="ic ic-check sm" aria-hidden="true"></span></span><span>Add your own exercises with the same labels, so swaps work for them too.</span></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="lp-sec" id="install" style="padding-top: 0">
+<div class="lp-wrap">
+<div class="lp-install">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<span class="lp-kicker">Install</span>
+<h2 class="lp-h2">On your phone in 20 seconds.</h2>
+<p class="lp-sub" style="font-size: 18px">It's a web app: no app store, no download, no updates to install. Add it to your home screen and it opens full screen like any other app.</p>
+<div class="lp-why">
+<div><span class="ic ic-check" style="color: #146B3A" aria-hidden="true"></span>Icon on your home screen</div>
+<div><span class="ic ic-check" style="color: #146B3A" aria-hidden="true"></span>Full screen, no browser bars</div>
+<div><span class="ic ic-check" style="color: #146B3A" aria-hidden="true"></span>Works offline in the gym</div>
+<div><span class="ic ic-check" style="color: #146B3A" aria-hidden="true"></span>Your data stays put on iPhone</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="lp-tabs" role="group" aria-label="Your device">
+<button type="button" class="on" data-tab="ios" aria-pressed="true">iPhone</button><button type="button" data-tab="android" aria-pressed="false">Android</button><button type="button" data-tab="desktop" aria-pressed="false">Computer</button>
+</div>
+<div class="lp-panel" data-panel="ios">
+<ol class="lp-isteps">
+<li><span class="lp-num">1</span><span>Open <b>gym.ilmal.se</b> in <b>Safari</b></span></li>
+<li><span class="lp-num">2</span><span>Tap <span class="lp-key"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M5 12v8h14v-8"></path></svg>Share</span> at the bottom of the screen</span></li>
+<li><span class="lp-num">3</span><span>Scroll and tap <span class="lp-key"><span class="ic ic-plus xs" aria-hidden="true"></span>Add to Home Screen</span></span></li>
+<li><span class="lp-num">4</span><span>Tap <b>Add</b>, then open Gym Tracker from your home screen</span></li>
+</ol>
+<p class="lp-sub" style="font-size: 14px">Using Chrome on iPhone? Tap the share icon in the address bar, then Add to Home Screen.</p>
+</div>
+<div class="lp-panel" data-panel="android" hidden>
+<ol class="lp-isteps">
+<li><span class="lp-num">1</span><span>Open <b>gym.ilmal.se</b> in <b>Chrome</b></span></li>
+<li><span class="lp-num">2</span><span>Tap <span class="lp-key">Install app</span> when the banner appears</span></li>
+<li><span class="lp-num">3</span><span>No banner? Tap <span class="lp-key"><span class="ic ic-more xs" aria-hidden="true"></span>menu</span> → <b>Install app</b></span></li>
+<li><span class="lp-num">4</span><span>Open Gym Tracker from your home screen or app drawer</span></li>
+</ol>
+</div>
+<div class="lp-panel" data-panel="desktop" hidden>
+<div class="lp-qr">
+<img src="/img/qr-app.svg" width="132" height="132" loading="lazy" decoding="async" alt="QR code for gym.ilmal.se/app">
+<div style="display: flex; flex-direction: column; gap: 6px"><b style="font-size: 18px">Scan with your phone camera</b><span class="lp-sub" style="font-size: 15px">It opens the app on your phone. Then follow the iPhone or Android steps.</span></div>
+</div>
+<a class="lp-btn ghost" href="/app">Or use it here in the browser</a>
+</div>
+<a class="lp-btn ink" href="/app">Open the app <span class="ic ic-arrow-right" aria-hidden="true"></span></a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="lp-sec" id="faq" style="padding-top: 0">
+<div class="lp-wrap">
+<div style="text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<span class="lp-kicker">FAQ</span>
+<h2 class="lp-h2">Questions</h2>
+</div>
+<div class="lp-faq">
+<div class="lp-q">
+<button id="faq-q0" aria-expanded="true" aria-controls="faq-a0"><span>Is it free?</span><span class="ic ic-minus" aria-hidden="true"></span></button>
+<p id="faq-a0" role="region" aria-labelledby="faq-q0">Yes. Gym Tracker is a free web app at gym.ilmal.se.</p>
+</div>
+<div class="lp-q">
+<button id="faq-q1" aria-expanded="false" aria-controls="faq-a1"><span>Why a web app and not the App Store?</span><span class="ic ic-plus" aria-hidden="true"></span></button>
+<p id="faq-a1" role="region" aria-labelledby="faq-q1" hidden>Nothing to download or update. Add it to your home screen and it behaves like an app: full screen, offline, its own icon.</p>
+</div>
+<div class="lp-q">
+<button id="faq-q2" aria-expanded="false" aria-controls="faq-a2"><span>Do I need an account?</span><span class="ic ic-plus" aria-hidden="true"></span></button>
+<p id="faq-a2" role="region" aria-labelledby="faq-q2" hidden>No. You can start right away and your data stays on your phone. Add an email later to back it up and use it on more than one device.</p>
+</div>
+<div class="lp-q">
+<button id="faq-q3" aria-expanded="false" aria-controls="faq-a3"><span>Does it work without signal?</span><span class="ic ic-plus" aria-hidden="true"></span></button>
+<p id="faq-a3" role="region" aria-labelledby="faq-q3" hidden>Yes. Logging, timers and swaps all work offline. Changes sync when you’re back online.</p>
+</div>
+<div class="lp-q">
+<button id="faq-q4" aria-expanded="false" aria-controls="faq-a4"><span>Does it track my location?</span><span class="ic ic-plus" aria-hidden="true"></span></button>
+<p id="faq-a4" role="region" aria-labelledby="faq-q4" hidden>Only when you start a session, to pick the right gym. Never in the background. You can turn it off and pick gyms by hand.</p>
+</div>
+<div class="lp-q">
+<button id="faq-q5" aria-expanded="false" aria-controls="faq-a5"><span>Can I get my data out?</span><span class="ic ic-plus" aria-hidden="true"></span></button>
+<p id="faq-a5" role="region" aria-labelledby="faq-q5" hidden>Any time. Export every session, set, timer and rating as CSV or JSON from Settings.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="lp-wrap">
+<div class="lp-final">
+<img src="/img/app-icon.png" width="80" height="80" loading="lazy" decoding="async" alt="">
+<h2>Your next session is waiting.</h2>
+<p style="font-size: 18px; max-width: 520px">Set it up in 90 seconds. Start your first session today.</p>
+<a class="lp-btn ink" href="/app">Open the app <span class="ic ic-arrow-right" aria-hidden="true"></span></a>
+</div>
+</div>
+</section>
+</main>
+<div class="lp-foot-wrap">
+<div class="lp-wrap">
+<footer class="lp-foot">
+<span>gym.ilmal.se · © 2026 ilmal</span>
+<nav aria-label="Footer"><a href="#faq">FAQ</a><a href="#install">Install</a><a href="#top">Privacy</a><a href="#top">Contact</a></nav>
+</footer>
+</div>
+</div>
+</div>
+<script src="/landing.js"></script>
+</body>
+</html>

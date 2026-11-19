@@ -1,0 +1,45 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "testRunner": "command",
+  "commandRunner": {
+    "command": "bun test src/shared src/server/api.test.ts src/server/api.mutation.test.ts src/server/mcp.test.ts src/server/mcp.mutation.test.ts src/server/ext/magic.test.ts src/server/ext/magic.mutation.test.ts src/server/ext/push.test.ts src/server/ext/push.mutation.test.ts src/server/ext/push.streak.test.ts src/server/mcp.streak.test.ts"
+  },
+  "coverageAnalysis": "off",
+  "mutate": [
+    "src/shared/rules.ts",
+    "src/shared/streak.ts",
+    "src/shared/planner.ts",
+    "src/shared/content.ts",
+    "src/server/api.ts",
+    "src/server/mcp.ts",
+    "src/server/ext/magic.ts",
+    "src/server/ext/push.ts"
+  ],
+  "ignorePatterns": [
+    "tsconfig.json",
+    "dist",
+    "design-ref",
+    "design-ref-assets",
+    "landing",
+    "test-results",
+    "tests",
+    "deploy",
+    "public",
+    "src/client",
+    ".stryker-tmp",
+    "reports"
+  ],
+  "concurrency": 8,
+  "timeoutMS": 20000,
+  "tempDirName": ".stryker-tmp",
+  "reporters": [
+    "clear-text",
+    "json"
+  ],
+  "jsonReporter": {
+    "fileName": "reports/mutation/mutation.json"
+  },
+  "disableTypeChecks": true,
+  "checkers": [],
+  "cleanTempDir": true
+}

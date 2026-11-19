@@ -1,0 +1,70 @@
+# Single-replica Deployment. SQLite is a single writer on a ReadWriteOnce volume, so: replicas 1, strategy Recreate.
+# Mail and push settings come from the optional `rep-secrets` Secret (SES_*, RESEND_API_KEY, MAIL_FROM); see the README.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rep
+  namespace: rep
+  labels: { app: rep }
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: { app: rep }
+  template:
+    metadata:
+      labels: { app: rep }
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile: { type: RuntimeDefault }
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: app
+          image: your-registry/rep:TAG
+          imagePullPolicy: IfNotPresent
+          ports:
+            - { name: http, containerPort: 8787 }
+          env:
+            - { name: NODE_ENV, value: production }
+            - { name: PORT, value: "8787" }
+            - { name: GYM_DB, value: /data/rep.db }
+            - { name: GYM_DIST, value: ./dist }
+            - { name: GYM_LANDING, value: ./landing }
+            - { name: PUBLIC_URL, value: "https://rep.example.com" }
+            - { name: VAPID_SUBJECT, value: "https://rep.example.com" }
+          envFrom:
+            - secretRef: { name: rep-secrets, optional: true }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          volumeMounts:
+            - { name: data, mountPath: /data }
+            - { name: tmp, mountPath: /tmp }
+          startupProbe:
+            httpGet: { path: /api/health, port: http }
+            periodSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet: { path: /api/health, port: http }
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet: { path: /api/health, port: http }
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests: { cpu: 25m, memory: 96Mi }
+            limits:   { cpu: 500m, memory: 384Mi }
+      volumes:
+        - name: data
+          persistentVolumeClaim: { claimName: rep-data }
+        - name: tmp
+          emptyDir: { sizeLimit: 64Mi }

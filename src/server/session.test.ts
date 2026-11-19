@@ -1,0 +1,62 @@
+import { describe, expect, test } from 'bun:test';
+import { buildApp } from './index';
+
+const cookiesOf = (res: Response) => res.headers.getSetCookie();
+const jar = (res: Response) => cookiesOf(res).map((c) => c.split(';')[0]).join('; ');
+
+describe('session cookie + landing redirect', () => {
+  const { app } = buildApp();
+  const post = (path: string, headers: Record<string, string> = {}, body: unknown = {}) =>
+    app.request(path, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body) });
+
+  test('anon sign-up sets a 400-day HttpOnly session cookie and a readable seen cookie', async () => {
+    const r = await post('/api/auth/anon');
+    const cs = cookiesOf(r);
+    const sess = cs.find((c) => c.startsWith('rep_session='))!;
+    expect(sess).toMatch(/HttpOnly/i);
+    expect(sess).toMatch(/Path=\/api\/auth/);
+    expect(sess).toMatch(/Max-Age=34560000/);
+    expect(sess).toMatch(/SameSite=Lax/i);
+    const seen = cs.find((c) => c.startsWith('rep_seen=1'))!;
+    expect(seen).not.toMatch(/HttpOnly/i);
+  });
+
+  test('restore returns the same token from the cookie; needs x-rep; bad cookie is 401 and clears', async () => {
+    const a = await post('/api/auth/anon');
+    const { token, userId } = await a.json() as any;
+    const cookie = jar(a);
+    expect((await post('/api/auth/restore', { cookie })).status).toBe(401); // no x-rep header
+    const ok = await post('/api/auth/restore', { cookie, 'x-rep': '1' });
+    expect(ok.status).toBe(200);
+    expect(await ok.json()).toMatchObject({ token, userId });
+    const bad = await post('/api/auth/restore', { cookie: 'rep_session=nope', 'x-rep': '1' });
+    expect(bad.status).toBe(401);
+    expect(cookiesOf(bad).some((c) => c.startsWith('rep_session=;') || /rep_session=; /.test(c) || /Max-Age=0/.test(c))).toBe(true);
+    expect((await post('/api/auth/restore', { 'x-rep': '1' })).status).toBe(401); // no cookie
+  });
+
+  test('the cookie is NOT accepted as auth on other routes', async () => {
+    const a = await post('/api/auth/anon');
+    const r = await app.request('/api/me', { headers: { cookie: jar(a) } });
+    expect(r.status).toBe(401);
+  });
+
+  test('logout revokes the token and clears the cookies', async () => {
+    const a = await post('/api/auth/anon');
+    const { token } = await a.json() as any;
+    const out = await post('/api/auth/logout', { authorization: `Bearer ${token}` });
+    expect(out.status).toBe(200);
+    expect(cookiesOf(out).length).toBeGreaterThanOrEqual(2);
+    expect((await post('/api/auth/restore', { cookie: jar(a), 'x-rep': '1' })).status).toBe(401);
+  });
+
+  test('/ redirects to /app/ only for browsers that have used the app', async () => {
+    const plain = await app.request('/');
+    expect(plain.status).toBe(200);
+    expect(plain.headers.get('vary')).toMatch(/cookie/i);
+    const seen = await app.request('/', { headers: { cookie: 'rep_seen=1' } });
+    expect(seen.status).toBe(302);
+    expect(seen.headers.get('location')).toBe('/app/');
+    expect(seen.headers.get('cache-control')).toMatch(/no-store/);
+  });
+});

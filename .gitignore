@@ -1,0 +1,15 @@
+node_modules
+dist
+data
+*.log
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.*
+.DS_Store
+.stryker-tmp
+reports
+test-results
+playwright-report
+deploy/.last-tag

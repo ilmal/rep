@@ -1,0 +1,13 @@
+node_modules
+dist
+data
+.git
+design-ref
+design-ref-assets
+test-results
+tests
+docs
+deploy
+playwright.config.ts
+**/*.test.ts
+*.md

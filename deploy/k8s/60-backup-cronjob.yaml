@@ -1,0 +1,90 @@
+# Hourly SQLite backup: consistent snapshot (VACUUM INTO) -> integrity_check -> gzip -> local copy -> offsite copy over ssh
+# (size verified before anything is pruned; a half-written file is never a "backup"). Retention: 24 local, 240 offsite (10 days).
+# Needs a Secret `offsite-backup-ssh-key` holding the private key (id_ed25519) and an authorised key on the backup host.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: rep-db-backup
+  namespace: rep
+spec:
+  schedule: "17 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  startingDeadlineSeconds: 3600
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 900
+      template:
+        spec:
+          restartPolicy: Never
+          volumes:
+            - name: ssh-key
+              secret: { secretName: offsite-backup-ssh-key, defaultMode: 256 }
+            - name: data
+              persistentVolumeClaim: { claimName: rep-data }   # rw: SQLite WAL needs the -shm file
+          containers:
+            - name: backup
+              image: python:3.12-slim          # sqlite3 is stdlib; apt only for openssh-client (cluster convention)
+              env:
+                - { name: SSH_TARGET, value: "backup@backup.example.com" }
+                - { name: REMOTE_DIR, value: "/srv/backups/rep" }
+                - { name: KEEP_LOCAL, value: "24" }
+                - { name: KEEP_REMOTE, value: "240" }    # hourly -> 10 days
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -eu
+                  apt-get update -qq && apt-get install -qq -y openssh-client >/dev/null
+                  mkdir -p /root/.ssh /data/backups
+                  SSH="ssh -o ConnectTimeout=30 -o BatchMode=yes -o StrictHostKeyChecking=accept-new -i /ssh/id_ed25519 $SSH_TARGET"
+                  TS=$(date -u +%Y%m%d_%H%M%S)
+                  NAME="rep_${TS}.db.gz"
+                  python3 - <<'PY'
+                  import sqlite3, os, gzip, shutil, sys
+                  snap = '/tmp/snap.db'
+                  if os.path.exists(snap): os.remove(snap)
+                  src = sqlite3.connect('/data/rep.db', timeout=30)
+                  src.execute("VACUUM INTO ?", (snap,)); src.close()
+                  dst = sqlite3.connect(snap)
+                  r = dst.execute('PRAGMA integrity_check').fetchone()[0]
+                  if r != 'ok': sys.exit('integrity_check failed: %s' % r)
+                  users = dst.execute('SELECT count(*) FROM users').fetchone()[0]
+                  ents = dst.execute('SELECT count(*) FROM entities').fetchone()[0]
+                  dst.close()
+                  with open(snap, 'rb') as f, gzip.open('/tmp/snap.db.gz', 'wb', 6) as g: shutil.copyfileobj(f, g)
+                  print('snapshot ok: users=%d entities=%d gz=%d bytes' % (users, ents, os.path.getsize('/tmp/snap.db.gz')))
+                  PY
+                  cp /tmp/snap.db.gz "/data/backups/$NAME"
+                  # local retention: strict name match, newest KEEP_LOCAL
+                  ls -1 /data/backups | grep -E '^rep_[0-9]{8}_[0-9]{6}\.db\.gz$' | sort -r | tail -n +$((KEEP_LOCAL+1)) \
+                    | while read -r f; do echo "local prune $f"; rm -f "/data/backups/$f"; done
+                  # offsite: write to .part, verify size, then rename (a half-written file is never a "backup")
+                  LOCAL_SIZE=$(wc -c < /tmp/snap.db.gz)
+                  $SSH "mkdir -p '$REMOTE_DIR' && cat > '$REMOTE_DIR/$NAME.part'" < /tmp/snap.db.gz
+                  REMOTE_SIZE=$($SSH "wc -c < '$REMOTE_DIR/$NAME.part'")
+                  [ "$REMOTE_SIZE" = "$LOCAL_SIZE" ] || { echo "size mismatch local=$LOCAL_SIZE remote=$REMOTE_SIZE"; exit 1; }
+                  $SSH "mv '$REMOTE_DIR/$NAME.part' '$REMOTE_DIR/$NAME'"
+                  echo "offsite ok: $NAME ($REMOTE_SIZE bytes)"
+                  # remote retention (only reached after a verified upload)
+                  LIST=$($SSH "ls -1 '$REMOTE_DIR'" | grep -E '^rep_[0-9]{8}_[0-9]{6}\.db\.gz$' | sort -r)
+                  COUNT=$(printf '%s\n' "$LIST" | grep -c . || true)
+                  echo "remote backups: $COUNT (keep $KEEP_REMOTE)"
+                  if printf '%s\n' "$LIST" | grep -qx "$NAME"; then
+                    printf '%s\n' "$LIST" | tail -n +$((KEEP_REMOTE+1)) | grep -v -x "$NAME" \
+                      | while read -r f; do echo "remote prune $f"; $SSH "rm -f '$REMOTE_DIR/$f'"; done
+                  else
+                    echo "WARN: new file missing from remote listing, skipping prune"; exit 1
+                  fi
+                  # stale .part leftovers from earlier failed runs (older than 1 day)
+                  $SSH "find '$REMOTE_DIR' -maxdepth 1 -name 'rep_*.db.gz.part' -mtime +1 -delete"
+                  echo "done"
+              securityContext:
+                allowPrivilegeEscalation: false
+              resources:
+                requests: { cpu: 50m, memory: 128Mi }
+                limits:   { cpu: "1", memory: 512Mi }
+              volumeMounts:
+                - { name: ssh-key, mountPath: /ssh, readOnly: true }
+                - { name: data, mountPath: /data }

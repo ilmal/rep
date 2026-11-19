@@ -1,0 +1,1870 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`transport initialize / ping / tools/list 1`] = `
+[
+  {
+    "name": "get_overview",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "list_sessions",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "areaId": {
+          "description": "",
+          "type": "string",
+        },
+        "limit": {
+          "description": "default 20, max 200",
+          "maximum": 200,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "sinceDays": {
+          "description": "only sessions started in the last N days",
+          "type": "integer",
+        },
+        "status": {
+          "description": "",
+          "enum": [
+            "completed",
+            "active",
+            "discarded",
+          ],
+          "type": "string",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "get_session",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "id",
+      ],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "get_exercise_history",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "limit": {
+          "description": "most recent N, default 30",
+          "maximum": 200,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "list_exercises",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "areaId": {
+          "description": "score in the context of this area",
+          "type": "string",
+        },
+        "availableAtGymId": {
+          "description": "only exercises doable with the equipment currently OK at this gym; "none" = the built-in No equipment location (bodyweight, floor, wall)",
+          "type": "string",
+        },
+        "customOnly": {
+          "description": "",
+          "type": "boolean",
+        },
+        "equipmentId": {
+          "description": "only exercises using this equipment id",
+          "type": "string",
+        },
+        "favoritesOnly": {
+          "description": "",
+          "type": "boolean",
+        },
+        "includeAvoided": {
+          "description": "default true",
+          "type": "boolean",
+        },
+        "includeContent": {
+          "description": "return the full merged how-to content (summary/steps/cues/goodToKnow/media) for each row; default false",
+          "type": "boolean",
+        },
+        "includeScores": {
+          "description": "compute scores (default true)",
+          "type": "boolean",
+        },
+        "limit": {
+          "description": "default 60, max 300",
+          "maximum": 300,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "missingUserContent": {
+          "description": "only exercises where the athlete/coach has not written any content yet (candidates to document)",
+          "type": "boolean",
+        },
+        "muscle": {
+          "description": "",
+          "enum": [
+            "Chest",
+            "Lats",
+            "Upper back",
+            "Delts",
+            "Rear delts",
+            "Biceps",
+            "Triceps",
+            "Forearms",
+            "Quads",
+            "Hamstrings",
+            "Glutes",
+            "Calves",
+            "Adductors",
+            "Hip flexors",
+            "Lower back",
+            "Core",
+            "Rotator cuff",
+          ],
+          "type": "string",
+        },
+        "pattern": {
+          "description": "",
+          "enum": [
+            "push",
+            "pull",
+            "squat",
+            "hinge",
+            "lunge",
+            "carry",
+            "core",
+            "mobility",
+          ],
+          "type": "string",
+        },
+        "query": {
+          "description": "name substring",
+          "type": "string",
+        },
+        "sort": {
+          "description": "",
+          "enum": [
+            "score",
+            "name",
+            "relevance",
+            "lastDone",
+          ],
+          "type": "string",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "get_exercise",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "areaId": {
+          "description": "score in the context of this area",
+          "type": "string",
+        },
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "explain_score",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "areaId": {
+          "description": "",
+          "type": "string",
+        },
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "list_areas",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "list_gyms",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "list_equipment_catalog",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "get_settings",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "get_muscle_report",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "windowDays": {
+          "description": "default 28",
+          "maximum": 365,
+          "minimum": 7,
+          "type": "integer",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "get_stats",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "weeks": {
+          "description": "default 12",
+          "maximum": 104,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "get_streak",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "weeks": {
+          "description": "how many of the latest weeks to include, default 16, max 520",
+          "maximum": 520,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "preview_next_session",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "areaId": {
+          "description": "",
+          "type": "string",
+        },
+        "excludeExerciseIds": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "gymId": {
+          "description": "default = most recently visited; "none" = At home, no equipment (bodyweight versions of the same area)",
+          "type": "string",
+        },
+        "slot": {
+          "description": "rotation slot, default = next",
+          "maximum": 20,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "variant": {
+          "description": "0 = best mix, 1+ = alternatives",
+          "maximum": 50,
+          "minimum": 0,
+          "type": "integer",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "list_coach_plans",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "description": "",
+          "enum": [
+            "pending",
+            "used",
+            "cancelled",
+          ],
+          "type": "string",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "list_events",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "description": "",
+          "type": "string",
+        },
+        "limit": {
+          "description": "default 200, max 1000",
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "sinceDays": {
+          "description": "default 14",
+          "maximum": 365,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "export_all",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "create_exercise",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "addToAreaIds": {
+          "description": "add to these areas' pools",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "cue": {
+          "description": "one-line how-to cue (legacy; prefer steps/cues below)",
+          "type": "string",
+        },
+        "cues": {
+          "description": "Short coaching cues to think about during the rep (max 10 items of 200 chars)",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "defaultSets": {
+          "description": "",
+          "maximum": 12,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "difficulty": {
+          "description": "1 easy, 2 medium, 3 advanced",
+          "maximum": 3,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "equipment": {
+          "description": "ALL listed equipment must be available. Empty = bodyweight.",
+          "items": {
+            "description": "",
+            "enum": [
+              "barbell",
+              "dumbbells",
+              "kettlebells",
+              "ez_bar",
+              "trap_bar",
+              "plates",
+              "squat_rack",
+              "flat_bench",
+              "adj_bench",
+              "nordic_bench",
+              "pullup_bar",
+              "dip_station",
+              "smith",
+              "landmine",
+              "box",
+              "leg_press",
+              "seated_leg_curl",
+              "lying_leg_curl",
+              "leg_ext",
+              "hack_squat",
+              "calf_machine",
+              "chest_press_m",
+              "shoulder_press_m",
+              "pec_deck",
+              "row_machine",
+              "back_ext",
+              "hip_abductor",
+              "assisted_pullup",
+              "cable_station",
+              "lat_pulldown",
+              "seated_row",
+              "bands",
+              "stability_ball",
+              "ab_wheel",
+              "mat",
+              "foam_roller",
+              "bike",
+              "sled",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "favorite": {
+          "description": "",
+          "type": "boolean",
+        },
+        "goodToKnow": {
+          "description": "Tips: common mistakes, setup, breathing, safety, regressions/progressions, what to do if it hurts (max 12 items of 400 chars)",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "media": {
+          "description": "Images / videos for the how-to (max 12). Replaces the exercise's media list; use add_exercise_media to add one",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "caption": {
+                "description": "max 300 chars, shown under the image and used as alt text",
+                "type": "string",
+              },
+              "kind": {
+                "description": "optional: auto-detected from the URL (extension / provider). Set "image" for an image URL without a file extension",
+                "enum": [
+                  "image",
+                  "video",
+                ],
+                "type": "string",
+              },
+              "source": {
+                "description": "where it is from, e.g. "YouTube / Squat University", max 120 chars",
+                "type": "string",
+              },
+              "title": {
+                "description": "max 120 chars",
+                "type": "string",
+              },
+              "url": {
+                "description": "https:// URL of an image (.jpg .png .webp .gif .avif) or a video (.mp4 .webm .mov file, a YouTube / youtu.be / Shorts link, a Vimeo link, or any other https page, which the app shows as a link)",
+                "type": "string",
+              },
+            },
+            "required": [
+              "url",
+            ],
+            "type": "object",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "name": {
+          "description": "Display name",
+          "type": "string",
+        },
+        "pattern": {
+          "description": "",
+          "enum": [
+            "push",
+            "pull",
+            "squat",
+            "hinge",
+            "lunge",
+            "carry",
+            "core",
+            "mobility",
+          ],
+          "type": "string",
+        },
+        "perHand": {
+          "description": "weight is per hand",
+          "type": "boolean",
+        },
+        "prehab": {
+          "description": "",
+          "type": "boolean",
+        },
+        "primary": {
+          "description": "Primary muscles (≥1)",
+          "items": {
+            "description": "",
+            "enum": [
+              "Chest",
+              "Lats",
+              "Upper back",
+              "Delts",
+              "Rear delts",
+              "Biceps",
+              "Triceps",
+              "Forearms",
+              "Quads",
+              "Hamstrings",
+              "Glutes",
+              "Calves",
+              "Adductors",
+              "Hip flexors",
+              "Lower back",
+              "Core",
+              "Rotator cuff",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "relevance": {
+          "description": "0–100, default 50",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+        },
+        "repMax": {
+          "description": "",
+          "maximum": 200,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "repMin": {
+          "description": "",
+          "maximum": 200,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "secondary": {
+          "description": "",
+          "items": {
+            "description": "",
+            "enum": [
+              "Chest",
+              "Lats",
+              "Upper back",
+              "Delts",
+              "Rear delts",
+              "Biceps",
+              "Triceps",
+              "Forearms",
+              "Quads",
+              "Hamstrings",
+              "Glutes",
+              "Calves",
+              "Adductors",
+              "Hip flexors",
+              "Lower back",
+              "Core",
+              "Rotator cuff",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "steps": {
+          "description": "How to do it, in order: setup, lowering, lifting, finish (max 12 items of 400 chars). null = back to the default",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "summary": {
+          "description": "One or two sentences: what it trains and when to use it (max 600 chars). null = back to the default",
+          "type": [
+            "string",
+            "null",
+          ],
+        },
+        "tags": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "tracking": {
+          "description": "",
+          "enum": [
+            "weight_reps",
+            "reps",
+            "time",
+          ],
+          "type": "string",
+        },
+        "weightStep": {
+          "description": "kg per progression step",
+          "maximum": 50,
+          "minimum": 0,
+          "type": "number",
+        },
+      },
+      "required": [
+        "name",
+        "primary",
+        "pattern",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "update_exercise",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "cue": {
+          "description": "one-line how-to cue (legacy; prefer steps/cues below)",
+          "type": "string",
+        },
+        "cues": {
+          "description": "Short coaching cues to think about during the rep (max 10 items of 200 chars)",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "defaultSets": {
+          "description": "",
+          "maximum": 12,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "difficulty": {
+          "description": "1 easy, 2 medium, 3 advanced",
+          "maximum": 3,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "equipment": {
+          "description": "ALL listed equipment must be available. Empty = bodyweight.",
+          "items": {
+            "description": "",
+            "enum": [
+              "barbell",
+              "dumbbells",
+              "kettlebells",
+              "ez_bar",
+              "trap_bar",
+              "plates",
+              "squat_rack",
+              "flat_bench",
+              "adj_bench",
+              "nordic_bench",
+              "pullup_bar",
+              "dip_station",
+              "smith",
+              "landmine",
+              "box",
+              "leg_press",
+              "seated_leg_curl",
+              "lying_leg_curl",
+              "leg_ext",
+              "hack_squat",
+              "calf_machine",
+              "chest_press_m",
+              "shoulder_press_m",
+              "pec_deck",
+              "row_machine",
+              "back_ext",
+              "hip_abductor",
+              "assisted_pullup",
+              "cable_station",
+              "lat_pulldown",
+              "seated_row",
+              "bands",
+              "stability_ball",
+              "ab_wheel",
+              "mat",
+              "foam_roller",
+              "bike",
+              "sled",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "goodToKnow": {
+          "description": "Tips: common mistakes, setup, breathing, safety, regressions/progressions, what to do if it hurts (max 12 items of 400 chars)",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "media": {
+          "description": "Images / videos for the how-to (max 12). Replaces the exercise's media list; use add_exercise_media to add one",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "caption": {
+                "description": "max 300 chars, shown under the image and used as alt text",
+                "type": "string",
+              },
+              "kind": {
+                "description": "optional: auto-detected from the URL (extension / provider). Set "image" for an image URL without a file extension",
+                "enum": [
+                  "image",
+                  "video",
+                ],
+                "type": "string",
+              },
+              "source": {
+                "description": "where it is from, e.g. "YouTube / Squat University", max 120 chars",
+                "type": "string",
+              },
+              "title": {
+                "description": "max 120 chars",
+                "type": "string",
+              },
+              "url": {
+                "description": "https:// URL of an image (.jpg .png .webp .gif .avif) or a video (.mp4 .webm .mov file, a YouTube / youtu.be / Shorts link, a Vimeo link, or any other https page, which the app shows as a link)",
+                "type": "string",
+              },
+            },
+            "required": [
+              "url",
+            ],
+            "type": "object",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "name": {
+          "description": "Display name",
+          "type": "string",
+        },
+        "pattern": {
+          "description": "",
+          "enum": [
+            "push",
+            "pull",
+            "squat",
+            "hinge",
+            "lunge",
+            "carry",
+            "core",
+            "mobility",
+          ],
+          "type": "string",
+        },
+        "perHand": {
+          "description": "weight is per hand",
+          "type": "boolean",
+        },
+        "prehab": {
+          "description": "",
+          "type": "boolean",
+        },
+        "primary": {
+          "description": "Primary muscles (≥1)",
+          "items": {
+            "description": "",
+            "enum": [
+              "Chest",
+              "Lats",
+              "Upper back",
+              "Delts",
+              "Rear delts",
+              "Biceps",
+              "Triceps",
+              "Forearms",
+              "Quads",
+              "Hamstrings",
+              "Glutes",
+              "Calves",
+              "Adductors",
+              "Hip flexors",
+              "Lower back",
+              "Core",
+              "Rotator cuff",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "repMax": {
+          "description": "",
+          "maximum": 200,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "repMin": {
+          "description": "",
+          "maximum": 200,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "secondary": {
+          "description": "",
+          "items": {
+            "description": "",
+            "enum": [
+              "Chest",
+              "Lats",
+              "Upper back",
+              "Delts",
+              "Rear delts",
+              "Biceps",
+              "Triceps",
+              "Forearms",
+              "Quads",
+              "Hamstrings",
+              "Glutes",
+              "Calves",
+              "Adductors",
+              "Hip flexors",
+              "Lower back",
+              "Core",
+              "Rotator cuff",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "steps": {
+          "description": "How to do it, in order: setup, lowering, lifting, finish (max 12 items of 400 chars). null = back to the default",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "summary": {
+          "description": "One or two sentences: what it trains and when to use it (max 600 chars). null = back to the default",
+          "type": [
+            "string",
+            "null",
+          ],
+        },
+        "tags": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "tracking": {
+          "description": "",
+          "enum": [
+            "weight_reps",
+            "reps",
+            "time",
+          ],
+          "type": "string",
+        },
+        "weightStep": {
+          "description": "kg per progression step",
+          "maximum": 50,
+          "minimum": 0,
+          "type": "number",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "archive_exercise",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "restore": {
+          "description": "",
+          "type": "boolean",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "set_exercise_pref",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "avoid": {
+          "description": "alias of banned",
+          "type": "boolean",
+        },
+        "banned": {
+          "description": "never planned or swapped in",
+          "type": "boolean",
+        },
+        "cooldownSessions": {
+          "type": [
+            "integer",
+            "null",
+          ],
+        },
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "favorite": {
+          "description": "",
+          "type": "boolean",
+        },
+        "minDaysBetween": {
+          "type": [
+            "integer",
+            "null",
+          ],
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null",
+          ],
+        },
+        "pauseDays": {
+          "description": "pause for N days; 0 = until resumed",
+          "maximum": 365,
+          "minimum": 0,
+          "type": "integer",
+        },
+        "pauseSessions": {
+          "description": "pause for the next N sessions",
+          "maximum": 20,
+          "minimum": 0,
+          "type": "integer",
+        },
+        "relevance": {
+          "description": "0–100",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer",
+        },
+        "resume": {
+          "description": "clear any pause",
+          "type": "boolean",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "set_exercise_content",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "cues": {
+          "description": "Short coaching cues to think about during the rep (max 10 items of 200 chars)",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "goodToKnow": {
+          "description": "Tips: common mistakes, setup, breathing, safety, regressions/progressions, what to do if it hurts (max 12 items of 400 chars)",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "mode": {
+          "description": "default replace",
+          "enum": [
+            "replace",
+            "merge",
+          ],
+          "type": "string",
+        },
+        "steps": {
+          "description": "How to do it, in order: setup, lowering, lifting, finish (max 12 items of 400 chars). null = back to the default",
+          "items": {
+            "type": "string",
+          },
+          "type": [
+            "array",
+            "null",
+          ],
+        },
+        "summary": {
+          "description": "One or two sentences: what it trains and when to use it (max 600 chars). null = back to the default",
+          "type": [
+            "string",
+            "null",
+          ],
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "add_exercise_media",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "caption": {
+          "description": "max 300 chars, shown under the image and used as alt text",
+          "type": "string",
+        },
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "kind": {
+          "description": "optional: auto-detected from the URL (extension / provider). Set "image" for an image URL without a file extension",
+          "enum": [
+            "image",
+            "video",
+          ],
+          "type": "string",
+        },
+        "source": {
+          "description": "where it is from, e.g. "YouTube / Squat University", max 120 chars",
+          "type": "string",
+        },
+        "title": {
+          "description": "max 120 chars",
+          "type": "string",
+        },
+        "url": {
+          "description": "https:// URL of an image (.jpg .png .webp .gif .avif) or a video (.mp4 .webm .mov file, a YouTube / youtu.be / Shorts link, a Vimeo link, or any other https page, which the app shows as a link)",
+          "type": "string",
+        },
+      },
+      "required": [
+        "exerciseId",
+        "url",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "remove_exercise_media",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "mediaId": {
+          "description": "",
+          "type": "string",
+        },
+        "url": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "reset_exercise_content",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "fields": {
+          "description": "default: all fields",
+          "items": {
+            "description": "",
+            "enum": [
+              "summary",
+              "steps",
+              "cues",
+              "goodToKnow",
+              "media",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "bulk_set_exercise_prefs",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "description": "",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "avoid": {
+                "description": "",
+                "type": "boolean",
+              },
+              "cooldownSessions": {
+                "type": [
+                  "integer",
+                  "null",
+                ],
+              },
+              "exerciseId": {
+                "description": "",
+                "type": "string",
+              },
+              "favorite": {
+                "description": "",
+                "type": "boolean",
+              },
+              "minDaysBetween": {
+                "type": [
+                  "integer",
+                  "null",
+                ],
+              },
+              "notes": {
+                "type": [
+                  "string",
+                  "null",
+                ],
+              },
+              "relevance": {
+                "description": "",
+                "maximum": 100,
+                "minimum": 0,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "exerciseId",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+      },
+      "required": [
+        "items",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "set_next_prescription",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "exerciseId": {
+          "description": "",
+          "type": "string",
+        },
+        "reps": {
+          "description": "",
+          "maximum": 200,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "sets": {
+          "description": "",
+          "maximum": 12,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "weight": {
+          "description": "kg",
+          "maximum": 1000,
+          "minimum": 0,
+          "type": "number",
+        },
+      },
+      "required": [
+        "exerciseId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "create_area",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "addToRotation": {
+          "description": "",
+          "type": "boolean",
+        },
+        "desc": {
+          "description": "",
+          "type": "string",
+        },
+        "exercisesPerSession": {
+          "description": "",
+          "maximum": 10,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "focusMuscles": {
+          "description": "",
+          "items": {
+            "description": "",
+            "enum": [
+              "Chest",
+              "Lats",
+              "Upper back",
+              "Delts",
+              "Rear delts",
+              "Biceps",
+              "Triceps",
+              "Forearms",
+              "Quads",
+              "Hamstrings",
+              "Glutes",
+              "Calves",
+              "Adductors",
+              "Hip flexors",
+              "Lower back",
+              "Core",
+              "Rotator cuff",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "mode": {
+          "description": "",
+          "enum": [
+            "auto",
+            "fixed",
+          ],
+          "type": "string",
+        },
+        "name": {
+          "description": "",
+          "type": "string",
+        },
+        "pinnedExerciseIds": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "poolExerciseIds": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+      },
+      "required": [
+        "name",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "update_area",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "addToPool": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "areaId": {
+          "description": "",
+          "type": "string",
+        },
+        "desc": {
+          "description": "",
+          "type": "string",
+        },
+        "exercisesPerSession": {
+          "description": "",
+          "maximum": 10,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "focusMuscles": {
+          "description": "",
+          "items": {
+            "description": "",
+            "enum": [
+              "Chest",
+              "Lats",
+              "Upper back",
+              "Delts",
+              "Rear delts",
+              "Biceps",
+              "Triceps",
+              "Forearms",
+              "Quads",
+              "Hamstrings",
+              "Glutes",
+              "Calves",
+              "Adductors",
+              "Hip flexors",
+              "Lower back",
+              "Core",
+              "Rotator cuff",
+            ],
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "mode": {
+          "description": "",
+          "enum": [
+            "auto",
+            "fixed",
+          ],
+          "type": "string",
+        },
+        "name": {
+          "description": "",
+          "type": "string",
+        },
+        "pin": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "pinnedExerciseIds": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "poolExerciseIds": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "removeFromPool": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "unpin": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+      },
+      "required": [
+        "areaId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "delete_area",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "areaId": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "areaId",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "set_rotation",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "areaIds": {
+          "description": "",
+          "items": {
+            "description": "",
+            "type": "string",
+          },
+          "type": "array",
+        },
+      },
+      "required": [
+        "areaIds",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "update_settings",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "fitToTime": {
+          "description": "",
+          "type": "boolean",
+        },
+        "planner": {
+          "additionalProperties": false,
+          "properties": {
+            "cooldownSessions": {
+              "description": "",
+              "maximum": 10,
+              "minimum": 0,
+              "type": "integer",
+            },
+            "freshDays": {
+              "description": "",
+              "maximum": 90,
+              "minimum": 1,
+              "type": "number",
+            },
+            "jitter": {
+              "description": "",
+              "maximum": 2,
+              "minimum": 0,
+              "type": "number",
+            },
+            "minDaysBetween": {
+              "description": "",
+              "maximum": 30,
+              "minimum": 0,
+              "type": "number",
+            },
+            "muscleOverdueDays": {
+              "description": "",
+              "maximum": 60,
+              "minimum": 2,
+              "type": "number",
+            },
+            "wCoverage": {
+              "description": "",
+              "maximum": 5,
+              "minimum": 0,
+              "type": "number",
+            },
+            "wFavorite": {
+              "description": "",
+              "maximum": 5,
+              "minimum": 0,
+              "type": "number",
+            },
+            "wFrequency": {
+              "description": "",
+              "maximum": 5,
+              "minimum": 0,
+              "type": "number",
+            },
+            "wRecency": {
+              "description": "",
+              "maximum": 5,
+              "minimum": 0,
+              "type": "number",
+            },
+            "wRelevance": {
+              "description": "",
+              "maximum": 5,
+              "minimum": 0,
+              "type": "number",
+            },
+            "wVariety": {
+              "description": "",
+              "maximum": 5,
+              "minimum": 0,
+              "type": "number",
+            },
+            "windowDays": {
+              "description": "",
+              "maximum": 180,
+              "minimum": 7,
+              "type": "integer",
+            },
+          },
+          "required": [],
+          "type": "object",
+        },
+        "profileNotes": {
+          "description": "goals, injuries, preferences; max 5000 chars",
+          "type": "string",
+        },
+        "restSec": {
+          "description": "",
+          "maximum": 600,
+          "minimum": 15,
+          "type": "integer",
+        },
+        "suggestSwaps": {
+          "description": "",
+          "type": "boolean",
+        },
+        "targetMinutes": {
+          "description": "",
+          "maximum": 180,
+          "minimum": 20,
+          "type": "integer",
+        },
+        "warmupTargetMinutes": {
+          "description": "",
+          "maximum": 40,
+          "minimum": 0,
+          "type": "integer",
+        },
+        "weeklyGoal": {
+          "description": "",
+          "maximum": 7,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "reset_planner",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "use_streak_freeze",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "undo_streak_freeze",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "update_gym_equipment",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "gymId": {
+          "description": "",
+          "type": "string",
+        },
+        "set": {
+          "additionalProperties": {
+            "description": "",
+            "enum": [
+              "ok",
+              "broken",
+              "none",
+            ],
+            "type": "string",
+          },
+          "description": "equipment id → status",
+          "type": "object",
+        },
+      },
+      "required": [
+        "gymId",
+        "set",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "create_coach_plan",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "areaId": {
+          "description": "",
+          "type": "string",
+        },
+        "exercises": {
+          "description": "",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "exerciseId": {
+                "description": "",
+                "type": "string",
+              },
+              "note": {
+                "description": "",
+                "type": "string",
+              },
+              "reps": {
+                "description": "",
+                "maximum": 200,
+                "minimum": 1,
+                "type": "integer",
+              },
+              "restSec": {
+                "description": "",
+                "maximum": 600,
+                "minimum": 15,
+                "type": "integer",
+              },
+              "sets": {
+                "description": "",
+                "maximum": 12,
+                "minimum": 1,
+                "type": "integer",
+              },
+              "weight": {
+                "description": "kg",
+                "maximum": 1000,
+                "minimum": 0,
+                "type": "number",
+              },
+            },
+            "required": [
+              "exerciseId",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+        "note": {
+          "description": "shown to the athlete before the session",
+          "type": "string",
+        },
+        "slot": {
+          "description": "rotation slot to apply to",
+          "maximum": 20,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "title": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "title",
+        "exercises",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "cancel_coach_plan",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "id",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+  {
+    "name": "add_session_note",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "description": "",
+          "type": "string",
+        },
+        "sessionId": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "sessionId",
+        "note",
+      ],
+      "type": "object",
+    },
+    "write": true,
+  },
+]
+`;

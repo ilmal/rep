@@ -1,0 +1,12 @@
+# SQLite lives here (/data/rep.db + WAL). One writer, so the claim is ReadWriteOnce and the Deployment runs a single replica.
+# Check your StorageClass reclaim policy: with "Delete", removing this claim deletes the data.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rep-data
+  namespace: rep
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 2Gi
