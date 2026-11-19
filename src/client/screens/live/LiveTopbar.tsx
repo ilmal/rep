@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { Session } from '../../../shared/types';
 import { hms } from '../../lib/format';
+import HrChip from '../../components/HrChip';
 
 /** Live topbar: overview, "Session N · Area", running clock + minutes left vs target, End. `back` swaps overview/End for the feedback screen's back chevron. */
 export default function LiveTopbar({ session, now, onBack }: { session: Session; now: number; onBack?: () => void }) {
@@ -14,9 +15,10 @@ export default function LiveTopbar({ session, now, onBack }: { session: Session;
         : <Link className="iconbtn" to="/session/plan" aria-label="Session overview"><span className="ic ic-list" aria-hidden="true" /></Link>}
       <div className="grow stack-s" style={{ alignItems: 'center', gap: 0 }}>
         <span className="small strong">Session {session.seq} · {session.areaName}</span>
-        <span className="hstack small" style={{ gap: 6, color: '#6B6B6B' }}>
+        <span className="hstack small" style={{ gap: 6, color: '#6B6B6B', flexWrap: 'wrap', justifyContent: 'center' }}>
           <span className="live" aria-hidden="true" />
           <span><span role="timer" aria-label="Session time">{hms(elapsed)}</span>{onBack ? '' : <> · <span data-testid="time-left">{leftTxt}</span></>}</span>
+          <HrChip now={now} />
         </span>
       </div>
       {onBack ? <span className="spacer" /> : <Link className="btn btn-soft btn-sm" to="/session/end">End</Link>}

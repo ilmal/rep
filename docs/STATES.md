@@ -286,5 +286,18 @@ Weeks and "today" use the device zone (client) or the zone stored with the push 
 Push reminders (`push.ts`, pref `streak`, default on, one local day = at most one): Monday 08:00+ repair ("Save your streak. Do 5 this week and your 7 weeks stay."), Monday 08:00+ lost ("New streak starts today. Your best is 9." opens `/app/streak`), last chance (08:00+ while left == days left), tight pace (from the learned training hour, default 17:00). Never 21:00-07:00 local; evaluated at most every 15 min per user; the day is claimed in `push_streak` before sending.
 **Not push:** "goal hit / repaired / milestone on finishing the session" is client-triggered (StreakCelebrate opens in the app); no server notification is sent for it. Not done: a per-user *learned* training time beyond the median start hour of the last 8 weeks, and the weekly Friday nudge and streak reminders are independent (a user can get both on the same day).
 
+## 3.2 Heart rate (server-side, not in the offline store)
+
+- **Settings.heartRate** `{enabled, intervalMin (5/10/15/30/60, default 15), maxHr?}` is an ordinary synced setting. Absent = off.
+- **Readings** live in the server table `heart_rate(user_id, at, source, bpm, min, max)`, written by `POST /api/hr/ingest` with a
+  write-only key (`rephr_...`, one per user, shown once, rotating invalidates the old one). Sources: the Health Auto Export app's REST
+  automation, or an iPhone Shortcut. Formats and limits: `src/shared/heartrate.ts` (bpm 25-250, at <= now+5 min, <= 400 days old, 5000/request).
+- **Read path**: the app asks `GET /api/hr/latest` every 15 s while a session is open and the tab is visible, and `GET /api/hr?from&to` for a
+  finished session's card. Nothing is cached offline: offline / signed out / nothing connected renders `--` (live) or no card (summary).
+- **Freshness**: live chip shows a number only for a reading <= 5 min old. Settings status calls a source stale after
+  max(10 min, 2.5 x interval).
+- **Privacy**: deleted by "Delete my data" and account deletion, included in `/api/export`, readable by the coach via `get_heart_rate` /
+  `get_session_heart_rate` (read scope).
+
 ## 4. Fixes made while writing the tests (actions.ts / core.ts)
 See the task report; each is covered by a test that fails on the old code.

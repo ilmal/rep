@@ -44,6 +44,7 @@ import ConnectCoach from './screens/ConnectCoach';
 import StreakCelebrate from './screens/StreakCelebrate';
 import Streak from './screens/Streak';
 import Badges from './screens/Badges';
+import HeartRate from './screens/HeartRate';
 
 class Boundary extends Component<{ children: ReactNode }, { err: Error | null }> {
   state = { err: null as Error | null };
@@ -138,6 +139,7 @@ export default function App() {
           <Route path="/history/:id" element={<SessionDetail />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/settings/coach" element={<ConnectCoach />} />
+          <Route path="/settings/heart-rate" element={<HeartRate />} />
           <Route path="/streak" element={<Streak />} />
           <Route path="/streak/badges" element={<Badges />} />
           <Route path="/streak/celebrate" element={<StreakCelebrate />} />

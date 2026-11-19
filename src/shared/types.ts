@@ -327,6 +327,8 @@ export interface Settings {
   manualFreezeWeeks?: number[];
   /** Streak: week-start ms of the last week whose StreakCelebrate screen was shown (so it shows once per week). */
   streakLastCelebrated?: number;
+  /** Heart rate from the athlete's iPhone / Apple Health (see shared/heartrate.ts). Absent = off. */
+  heartRate?: { enabled: boolean; intervalMin: number; maxHr?: number };
   updatedAt: number;
 }
 

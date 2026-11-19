@@ -164,6 +164,7 @@ export function buildApi(db: Db) {
     const uid = c.get('uid');
     db.run('DELETE FROM entities WHERE user_id=?', [uid]);
     db.run('DELETE FROM events WHERE user_id=?', [uid]);
+    try { db.run('DELETE FROM heart_rate WHERE user_id=?', [uid]); } catch { /* table is created by the hr extension; absent in api-only setups */ }
     db.run('UPDATE users SET seq=0 WHERE id=?', [uid]);
     return c.json({ ok: true });
   });
@@ -174,7 +175,9 @@ export function buildApi(db: Db) {
     const entities = q.allEnts.all(uid).map((r) => ({ type: r.type, id: r.id, updatedAt: r.updated_at, deleted: !!r.deleted, data: JSON.parse(r.json) }));
     const events = q.allEvents.all(uid).map((r) => ({ id: r.id, at: r.at, kind: r.kind, sessionId: r.session_id, payload: parseOrNull(r.payload) }));
     c.header('Content-Disposition', 'attachment; filename="rep-export.json"');
-    return c.json({ exportedAt: Date.now(), user: { id: uid, email: u?.email ?? null }, entities, events });
+    let heartRate: unknown[] = [];
+    try { heartRate = db.query('SELECT at,bpm,min,max,source FROM heart_rate WHERE user_id=? ORDER BY at').all(uid); } catch { /* hr extension not mounted */ }
+    return c.json({ exportedAt: Date.now(), user: { id: uid, email: u?.email ?? null }, entities, events, heartRate });
   });
 
   /**

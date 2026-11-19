@@ -324,6 +324,60 @@ exports[`transport initialize / ping / tools/list 1`] = `
     "write": false,
   },
   {
+    "name": "get_heart_rate",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "bucketMinutes": {
+          "description": "0 = raw readings; else bucket size in minutes",
+          "maximum": 1440,
+          "minimum": 0,
+          "type": "integer",
+        },
+        "from": {
+          "description": "ISO time (overrides sinceMinutes)",
+          "type": "string",
+        },
+        "sinceMinutes": {
+          "description": "look back this many minutes, default 120, max 10080 (7 days)",
+          "maximum": 10080,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "to": {
+          "description": "ISO time, default now",
+          "type": "string",
+        },
+      },
+      "required": [],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
+    "name": "get_session_heart_rate",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "bucketMinutes": {
+          "description": "bucket size in minutes, default 2",
+          "maximum": 60,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "id": {
+          "description": "",
+          "type": "string",
+        },
+      },
+      "required": [
+        "id",
+      ],
+      "type": "object",
+    },
+    "write": false,
+  },
+  {
     "name": "preview_next_session",
     "schema": {
       "additionalProperties": false,

@@ -8,6 +8,7 @@ import { nextSlot, sessionDurationSec, sessionsInWeek, volumeOf } from '../../sh
 import type { Session } from '../../shared/types';
 import { useStreak } from '../store/x-streak';
 import { newlyUnlockedBadges } from '../store/x-celebrate';
+import HrCard from '../components/HrCard';
 import '../styles/session.css';
 
 export default function Summary() {
@@ -155,6 +156,8 @@ function SummaryInner({ session, sessions }: { session: Session; sessions: Sessi
             <span className="ic ic-chev-right chev" aria-hidden="true" />
           </Link>
         )}
+
+        <HrCard from={session.warmupStartedAt ?? session.startedAt} to={ended} />
 
         {total > 0 && (
           <div className="card tight">

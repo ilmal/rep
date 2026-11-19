@@ -37,6 +37,9 @@ heavy and the next session adjusts.
 All 108 exercises come with a summary, numbered steps, coaching cues, things to watch for, and a demo video that plays right in the app.
 Edit any of it, or let your coach write the notes that matter to you.
 
+**Pulse, if you want it**
+Turn on heart rate and your iPhone sends readings from Apple Health (AirPods Pro or Apple Watch) in the background. You get a live pulse chip on the workout screen, zone colours, and average, max and min in every session summary. Outside workouts you choose how often a reading arrives. Your coach can read it too.
+
 **Streaks that earn their keep**
 Four tiers, milestone badges, streak freezes you earn every four goal weeks, a 30-minute express session when the week is slipping, and
 reminders that stay quiet at night.
@@ -162,7 +165,7 @@ curl -s https://<host>/mcp -H 'authorization: Bearer rep_…' -H 'content-type: 
 Exercise guides: every exercise (built-in and custom) has how-to content: summary, ordered steps, coaching cues, good-to-know tips and images/videos. Built-ins ship written text plus one demo video that plays inside the app; your own edits and your coach's are stored as an override on the exercise's pref, win per field, and sync like any other preference (see `docs/STATES.md` 1.5.1). The athlete reads it on the exercise page, from "How to do it" on the live "Up next" screen and from the info button in the pre-session list. Over MCP: `get_exercise` / `list_exercises` return the merged content (`content.customised` says which fields are yours; `missingUserContent` finds undocumented exercises), `set_exercise_content` (replace or merge steps/cues/tips/summary), `add_exercise_media` (https image, video file, YouTube/Vimeo link; kind auto-detected), `remove_exercise_media`, `reset_exercise_content`, plus content fields on `create_exercise`/`update_exercise`. The coach is told to write the most important parts the athlete should read before performing the exercise; media URLs must be https and are never invented. The server sets a CSP on `/app/*` allowing images/video over https and YouTube-nocookie / Vimeo embeds only (the player loads after a tap).
 
 Read tools: `get_overview` `list_sessions` `get_session` `get_exercise_history` `list_exercises` `get_exercise` `explain_score` `list_areas` `list_gyms`
-`list_equipment_catalog` `get_settings` `get_muscle_report` `get_stats` `get_streak` `preview_next_session` `list_coach_plans` `list_events` `export_all`.
+`list_equipment_catalog` `get_settings` `get_muscle_report` `get_stats` `get_streak` `get_heart_rate` `get_session_heart_rate` `preview_next_session` `list_coach_plans` `list_events` `export_all`.
 
 Write tools: `create_exercise` `update_exercise` `archive_exercise` `set_exercise_pref` `set_exercise_content` `add_exercise_media` `remove_exercise_media` `reset_exercise_content` `bulk_set_exercise_prefs` `set_next_prescription` `create_area` `update_area`
 `delete_area` `set_rotation` `update_settings` (incl. planner weights and profile notes) `reset_planner` `use_streak_freeze` `undo_streak_freeze` `update_gym_equipment` `create_coach_plan` `cancel_coach_plan` `add_session_note`.

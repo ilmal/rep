@@ -5,6 +5,7 @@ import { setSessionNote, useSettings, deleteSession } from '../store/actions';
 import { exerciseSeconds, sessionDurationSec, volumeOf } from '../../shared/rules';
 import { dayShort, mmss, monthShort, rxLine, toDisplay } from '../lib/format';
 import type { Feedback, SessionExercise, Unit } from '../../shared/types';
+import HrCard from '../components/HrCard';
 
 const hhmm = (t: number) => { const d = new Date(t); return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; };
 const EFFORT: Record<Feedback['effort'], string> = { chill: 'Chill', normal: 'Normal', hard: 'Trying hard' };
@@ -96,6 +97,8 @@ export default function SessionDetail() {
             </span>
           </div>
         </div>
+
+        <HrCard from={s.warmupStartedAt ?? s.startedAt} to={end} />
 
         <div className="card tight">
           <div className="between"><span className="lbl">Timeline</span><span className="small strong">{mmss(dur)}</span></div>

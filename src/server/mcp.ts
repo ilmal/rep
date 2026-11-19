@@ -1,6 +1,7 @@
 // MCP (Model Context Protocol) server over streamable HTTP (stateless JSON-RPC).
 // Lets a coach agent (e.g. Grok) read ALL data and edit exercises, favorites, relevance scores,
 // areas, rotation, planner weights, equipment and queue coach plans for the app to use.
+import { summarize, type HrSample } from '../shared/heartrate';
 import { Hono } from 'hono';
 import { createHash, randomUUID } from 'node:crypto';
 import type { Db } from './db';
@@ -206,6 +207,22 @@ function writeSettings(c: Ctx, settings: unknown) {
 function userTz(db: Db, uid: string): number | undefined {
   try { const r = db.query<{ tz: number }, [string]>('SELECT tz FROM push_subs WHERE user_id=? ORDER BY created_at DESC LIMIT 1').get(uid); return typeof r?.tz === 'number' ? r.tz : undefined; } catch { return undefined; }
 }
+
+function heartRateReport(c: Ctx, from: number, to: number, bucketMin: number) {
+  let rows: { at: number; bpm: number; min: number | null; max: number | null }[] = [];
+  try { rows = c.db.query<{ at: number; bpm: number; min: number | null; max: number | null }, [string, number, number]>('SELECT at,bpm,min,max FROM heart_rate WHERE user_id=? AND at>=? AND at<=? ORDER BY at LIMIT 20000').all(c.uid, from, to); } catch { /* hr extension absent */ }
+  const samples: HrSample[] = rows.map((r) => ({ at: r.at, bpm: r.bpm, ...(r.min !== null ? { min: r.min } : {}), ...(r.max !== null ? { max: r.max } : {}) }));
+  const sum = summarize(samples);
+  const last = samples[samples.length - 1];
+  const base = { hasData: samples.length > 0, from: iso(from), to: iso(to), summary: sum, latest: last ? { at: iso(last.at), bpm: last.bpm, minutesAgo: Math.round((c.now - last.at) / 60_000) } : null };
+  if (bucketMin > 0) {
+    const size = bucketMin * 60_000, by = new Map<number, HrSample[]>();
+    for (const s of samples) { const k = Math.floor(s.at / size) * size; (by.get(k) ?? by.set(k, []).get(k)!).push(s); }
+    const buckets = [...by].map(([k, v]) => ({ at: iso(k), ...summarize(v)! })).slice(-300);
+    return { ...base, bucketMinutes: bucketMin, buckets };
+  }
+  return { ...base, samples: samples.slice(-300).map((s) => ({ at: iso(s.at), bpm: s.bpm, ...(s.min !== undefined ? { min: s.min, max: s.max } : {}) })) };
+}
 const streakOf = (c: Ctx, settings: Settings = c.data.settings): StreakView => computeStreak(c.data.sessions, settings, c.now, { tz: c.tz });
 /** Compact streak block for get_overview / get_stats / the freeze tools. */
 function streakSummary(v: StreakView) {
@@ -384,6 +401,27 @@ const TOOLS: Tool[] = [
         weeks: v.weeks.slice(-(a.weeks ?? 16)).map((w) => ({ ...w, weekStart: wsIso(w.weekStart) })),
         milestones: v.milestones, badges: v.badges.map((b) => ({ ...b, unlockedAt: b.unlockedAt ? iso(b.unlockedAt) : null })),
       };
+    },
+  },
+  {
+    name: 'get_heart_rate',
+    description: 'The athlete\'s heart-rate readings (bpm) from their iPhone/Apple Health, in the last N minutes or a time range. Returns the latest reading, a summary (count, avg, min, max) and either raw readings (default, newest last, max 300) or buckets of bucketMinutes with avg/min/max. Readings arrive every few minutes (the athlete picks the interval in Settings) and about every minute during workouts, so gaps are normal; hasData is false when nothing has been connected yet.',
+    schema: S({ sinceMinutes: int('look back this many minutes, default 120, max 10080 (7 days)', 1, 10080), from: str('ISO time (overrides sinceMinutes)'), to: str('ISO time, default now'), bucketMinutes: int('0 = raw readings; else bucket size in minutes', 0, 1440) }),
+    run: (c, a) => {
+      const to = a.to ? Date.parse(a.to) : c.now;
+      const from = a.from ? Date.parse(a.from) : to - (a.sinceMinutes ?? 120) * 60_000;
+      if (!Number.isFinite(from) || !Number.isFinite(to) || from >= to) fail('Invalid time range.');
+      return heartRateReport(c, from, to, a.bucketMinutes ?? 0);
+    },
+  },
+  {
+    name: 'get_session_heart_rate',
+    description: 'Heart rate during one session (from the warm-up/start to the end): readings summary (avg/min/max), the latest reading and downsampled readings. Compare avg/max across sessions to judge intensity and recovery. hasData is false when the athlete has no readings for that window.',
+    schema: S({ id: str(), bucketMinutes: int('bucket size in minutes, default 2', 1, 60) }, ['id']),
+    run: (c, a) => {
+      const s = c.data.sessions.find((x) => x.id === a.id) ?? fail('Session not found.');
+      const from = s.warmupStartedAt ?? s.startedAt, to = s.endedAt ?? c.now;
+      return { sessionId: s.id, ...heartRateReport(c, from, to, a.bucketMinutes ?? 2) };
     },
   },
   {
@@ -723,6 +761,7 @@ const BY_NAME = new Map(TOOLS.map((t) => [t.name, t]));
 const INSTRUCTIONS = `You are connected to the athlete's gym tracker ("Rep"). You can read all training data and edit the plan.
 Workflow for acting as personal trainer:
 1. get_overview, then get_stats / get_muscle_report / list_sessions to understand history, balance and adherence.
+1c. get_heart_rate / get_session_heart_rate show pulse from the athlete's iPhone (read-only; may be empty if not connected). Use avg/max per session to judge intensity and recovery, never to diagnose.
 1b. get_streak shows the streak (weeks, freezes, pace, repair offer, badges). A week missed by 1–2 can be repaired next week (goal + deficit). use_streak_freeze only when the athlete asks. Goal changes apply from next Monday.
 2. Tune the algorithm, not just single workouts: set_exercise_pref (favorite, avoid, relevance 0–100 = how relevant to the current plan), update_area (pool/pinned/focus), set_rotation, update_settings.planner (weights: relevance, recency, frequency, muscle coverage, variety, favorite; cooldown = no repeat within N sessions / days).
 3. The app scores every exercise automatically (relevance + recency + frequency + muscle coverage + favorite, minus cooldown and similarity penalties) so recently performed exercises rotate out and similar-but-different ones rotate in. Use explain_score and preview_next_session to see/verify the result before changing anything.

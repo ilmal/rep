@@ -138,6 +138,7 @@ export default function Settings() {
           <Toggle label="Fit sessions to target time" sub="Trim rest or drop an accessory, always with undo" checked={s.fitToTime} onChange={(v) => updateSettings({ fitToTime: v })} />
           <Toggle label="Auto-swap missing equipment" sub="Local matching by muscles and pattern" checked={s.suggestSwaps} onChange={(v) => updateSettings({ suggestSwaps: v })} />
           <Toggle label="AI assist" tag="Optional" sub="Smarter generation and swaps. Needs a connection. Core features work without it." checked={s.aiAssist} onChange={(v) => updateSettings({ aiAssist: v })} />
+          <Link className="li" to="/settings/heart-rate"><span className="tile sm"><span className="ic ic-heart-pulse sm" aria-hidden="true" /></span><div className="grow"><span className="li-t">Heart rate</span><span className="li-s">{s.heartRate?.enabled ? `On · reading every ${s.heartRate.intervalMin} min` : 'Pulse from your AirPods or Watch via Apple Health'}</span></div><span className="ic ic-chev-right chev" aria-hidden="true" /></Link>
           <Link className="li" to="/settings/coach"><span className="tile sm"><span className="ic ic-sparkle sm" aria-hidden="true" /></span><div className="grow"><span className="li-t">AI coach</span><span className="li-s">Let an agent such as Grok build and tune your workouts over MCP. Optional; the core app never needs it.</span></div><span className="ic ic-chev-right chev" aria-hidden="true" /></Link>
         </div>
 

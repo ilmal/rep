@@ -21,6 +21,8 @@ const READ_TOOLS: [string, string][] = [
   ['get_muscle_report', 'Which muscles are overdue or well covered'],
   ['get_stats', 'Volume, duration, streaks and recent PRs'],
   ['get_streak', 'Streak, freezes, pace, repair offer and badges'],
+  ['get_heart_rate', 'Your heart-rate readings (latest, summary, buckets)'],
+  ['get_session_heart_rate', 'Pulse during one session: avg, max, min'],
   ['preview_next_session', 'Dry-run: what would be generated next'],
   ['list_coach_plans', 'Queued, used and cancelled coach plans'],
   ['list_events', 'The raw event stream'],
