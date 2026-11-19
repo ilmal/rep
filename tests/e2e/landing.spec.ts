@@ -19,7 +19,7 @@ test.describe('landing', () => {
   test('all sections render with the design copy', async ({ page }) => {
     const e = errs(page);
     await go(page);
-    await expect(page).toHaveTitle('Gym Tracker — train by the week');
+    await expect(page).toHaveTitle('Rep — train by the week');
     await expect(page.locator('h1')).toHaveText('Train by the week, not the calendar.');
     for (const id of ['top', 'how', 'features', 'install', 'faq']) await expect(page.locator('#' + id)).toBeAttached();
     await expect(page.locator('h2')).toHaveText([
@@ -116,7 +116,7 @@ test.describe('landing', () => {
     const types = ld.map((x: any) => x['@type']);
     expect(types).toEqual(['SoftwareApplication', 'FAQPage']);
     expect(ld[1].mainEntity).toHaveLength(6);
-    expect(ld[1].mainEntity[0].acceptedAnswer.text).toBe('Yes. Gym Tracker is a free web app at rep.ilmal.se.');
+    expect(ld[1].mainEntity[0].acceptedAnswer.text).toBe('Yes. Rep is a free web app at rep.ilmal.se.');
     const robots = await request.get(ORIGIN + 'robots.txt');
     expect(await robots.text()).toContain('Sitemap: https://rep.ilmal.se/sitemap.xml');
     const sm = await request.get(ORIGIN + 'sitemap.xml');

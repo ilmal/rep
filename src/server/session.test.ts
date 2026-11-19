@@ -90,3 +90,14 @@ describe('hosts: canonical landing + origin-correct sign-in links', () => {
     } finally { for (const k of ['PUBLIC_URL', 'PUBLIC_HOSTS', 'NODE_ENV', 'RESEND_API_KEY']) { if (save[k] === undefined) delete process.env[k]; else process.env[k] = save[k]; } }
   });
 });
+
+describe('landing asset caching', () => {
+  test('content-hashed images are immutable for a year; other images get 30 days', async () => {
+    const { app } = buildApp();
+    const hashed = (await Array.fromAsync(new Bun.Glob('img/phone-today.*.webp').scan('landing'))).find((f) => !f.includes('-390'))!;
+    const r = await app.request(`/${hashed}`);
+    expect(r.status).toBe(200);
+    expect(r.headers.get('cache-control')).toBe('public, max-age=31536000, immutable');
+    expect((await app.request('/img/app-icon.png')).headers.get('cache-control')).toMatch(/max-age=2592000/);
+  });
+});

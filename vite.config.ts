@@ -16,8 +16,8 @@ export default defineConfig({
       includeAssets: ['fonts/*.woff2', 'icon.svg', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'],
       manifest: {
         id: '/app/',
-        name: 'Gym Tracker',
-        short_name: 'Gym',
+        name: 'Rep',
+        short_name: 'Rep',
         description: 'Train by the week, not the calendar.',
         theme_color: '#F3F2EF',
         background_color: '#F3F2EF',

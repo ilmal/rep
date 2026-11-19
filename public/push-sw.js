@@ -28,7 +28,7 @@
     var d = parse(event);
     var tasks = [];
     /* A visible notification is mandatory for every push (userVisibleOnly); iOS revokes the subscription otherwise. */
-    tasks.push(self.registration.showNotification(typeof d.title === 'string' && d.title ? d.title : 'Gym Tracker', {
+    tasks.push(self.registration.showNotification(typeof d.title === 'string' && d.title ? d.title : 'Rep', {
       body: typeof d.body === 'string' ? d.body : '',
       icon: ICON,
       badge: ICON,

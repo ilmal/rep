@@ -71,7 +71,7 @@ test.describe('location denied', () => {
       await seed(page, { gyms: gyms(), ...start() });
       await page.goto('session/preview');
       await page.getByRole('button', { name: 'Turn on in phone settings' }).click();
-      await expect(page.locator('.toast')).toHaveText('Opens iOS Settings › Gym Tracker › LocationOK');
+      await expect(page.locator('.toast')).toHaveText('Opens iOS Settings › Rep › LocationOK');
     });
   });
 

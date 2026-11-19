@@ -196,8 +196,8 @@ function SummaryInner({ session, sessions }: { session: Session; sessions: Sessi
         </label>
 
         {offer && (
-          <div className="card" role="region" aria-label="Install Gym Tracker">
-            <div className="stack-s" style={{ gap: 2 }}><span className="t-h">Add Gym Tracker to your home screen</span><span className="small sub">Opens full screen and works offline.</span></div>
+          <div className="card" role="region" aria-label="Install Rep">
+            <div className="stack-s" style={{ gap: 2 }}><span className="t-h">Add Rep to your home screen</span><span className="small sub">Opens full screen and works offline.</span></div>
             <div className="hstack" style={{ gap: 8 }}>
               <Link className="btn btn-primary" to="/install" onClick={() => lsSet(INSTALL_KEY, '1')}>Install</Link>
               <button className="btn" onClick={dismissOffer}>Not now</button>

@@ -188,7 +188,7 @@ test.describe('Notifications screen', () => {
     const b = page.locator('.banner.warn');
     await expect(b).toContainText('Notifications are off');
     await expect(b).toContainText('The app works the same. To turn them on later:');
-    await expect(b).toContainText('Notifications › Gym Tracker');
+    await expect(b).toContainText('Notifications › Rep');
     await expect(b).not.toContainText('iPhone Settings');
     expect((await pushState(page)).subscribes).toBe(0);
     expect(calls.filter((c) => c.path === '/subscribe')).toHaveLength(0);
@@ -230,7 +230,7 @@ test.describe('Notifications screen', () => {
     test('asks to install first and links to the install guide; never requests permission', async ({ page }) => {
       await seed(page, withAccount); await stub(page, { api: false }); await mockApi(page);
       await page.goto('notifications');
-      await expect(page.locator('.banner.info .b-t')).toHaveText('Add Gym Tracker to your Home Screen first');
+      await expect(page.locator('.banner.info .b-t')).toHaveText('Add Rep to your Home Screen first');
       await expect(page.locator('.banner.info')).toContainText('On iPhone, notifications only work in the installed app.');
       await expect(row(page, 'Rest is over')).toBeDisabled();
       await expect(page.getByRole('button', { name: 'Turn on notifications' })).toHaveCount(0);
@@ -248,7 +248,7 @@ test.describe('Notifications screen', () => {
       await page.goto('notifications');
       await expect(page.locator('.banner.info')).toHaveCount(0);
       await page.getByRole('button', { name: 'Turn on notifications' }).click();
-      await expect(page.locator('.banner.warn')).toContainText('iPhone Settings › Notifications › Gym Tracker');
+      await expect(page.locator('.banner.warn')).toContainText('iPhone Settings › Notifications › Rep');
     });
   });
 
@@ -516,7 +516,7 @@ test.describe('service worker push handler (public/push-sw.js)', () => {
     await sw.fire('push', {});
     await sw.fire('push', { data: { json: () => { throw new Error('bad'); }, text: () => 'plain text body' } });
     await sw.fire('push', { data: { json: () => { throw new Error('bad'); }, text: () => { throw new Error('bad'); } } });
-    expect(sw.shown.map((n) => [n.title, n.body])).toEqual([['Gym Tracker', ''], ['Gym Tracker', 'plain text body'], ['Gym Tracker', '']]);
+    expect(sw.shown.map((n) => [n.title, n.body])).toEqual([['Rep', ''], ['Rep', 'plain text body'], ['Rep', '']]);
     expect(sw.badges).toEqual([]);
   });
 

@@ -6,7 +6,7 @@ import { promptInstall, requestPersistence, setSheetFlag, useInstallState } from
 const STEPS = [
   ['Tap Share', 'The square with an arrow, in Safari’s bottom bar. On iPad it’s at the top.'],
   ['Tap Add to Home Screen', 'Scroll down the share menu if you don’t see it.'],
-  ['Tap Add', 'Then open Gym Tracker from your home screen. You’ll pick up right here.'],
+  ['Tap Add', 'Then open Rep from your home screen. You’ll pick up right here.'],
 ];
 const OTHER_STEP1 = 'The square with an arrow, in the address bar. If you don’t see it, open this page in Safari.';
 const BROWSER = { safari: 'Safari', chrome: 'Chrome', firefox: 'Firefox', other: 'your browser' } as const;
@@ -60,7 +60,7 @@ export default function InstallSheet() {
       <div className="scroll" style={{ paddingTop: 28, paddingBottom: 160 }}>
         <div className="hstack" style={{ gap: 14 }}>
           <img src={ICON} alt="" style={{ width: 60, height: 60, borderRadius: 16 }} />
-          <div className="stack-s" style={{ gap: 2 }}><h1 className="t-title">Gym Tracker</h1><span className="sub">{host}</span></div>
+          <div className="stack-s" style={{ gap: 2 }}><h1 className="t-title">Rep</h1><span className="sub">{host}</span></div>
         </div>
         <div className="stack-s" style={{ gap: 6, paddingTop: 6 }}>
           <h2 className="t-h" style={{ fontSize: 24 }}>Add it to your Home Screen</h2>
@@ -96,7 +96,7 @@ export default function InstallSheet() {
               {step === 3 && (
                 <div className="addbox">
                   <div className="between small"><span style={{ color: '#1D44A8' }}>Cancel</span><b>Add to Home Screen</b><span className="hl" style={{ color: '#1D44A8', fontWeight: 700, padding: '2px 8px' }}>Add</span></div>
-                  <div className="hstack"><img src={ICON} alt="" style={{ width: 52, height: 52, borderRadius: 12 }} /><div className="stack-s" style={{ gap: 0 }}><b>Gym Tracker</b><span className="small sub">{host}</span></div></div>
+                  <div className="hstack"><img src={ICON} alt="" style={{ width: 52, height: 52, borderRadius: 12 }} /><div className="stack-s" style={{ gap: 0 }}><b>Rep</b><span className="small sub">{host}</span></div></div>
                 </div>
               )}
             </div>
@@ -115,7 +115,7 @@ export default function InstallSheet() {
               {and === 'dialog' && (
                 <div className="dlg">
                   <b style={{ fontSize: 17 }}>Install app?</b>
-                  <div className="hstack"><img src={ICON} alt="" style={{ width: 44, height: 44, borderRadius: 10 }} /><div className="stack-s" style={{ gap: 0 }}><b>Gym Tracker</b><span className="small sub">{host}</span></div></div>
+                  <div className="hstack"><img src={ICON} alt="" style={{ width: 44, height: 44, borderRadius: 10 }} /><div className="stack-s" style={{ gap: 0 }}><b>Rep</b><span className="small sub">{host}</span></div></div>
                   <div className="hstack" style={{ justifyContent: 'flex-end', gap: 18, color: '#1D44A8', fontWeight: 700, fontSize: 14 }}><span>Cancel</span><span className="hl" style={{ padding: '4px 10px' }}>Install</span></div>
                 </div>
               )}

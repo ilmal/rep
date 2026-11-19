@@ -51,7 +51,7 @@ export default function LocationDenied({ onDone }: { onDone?: () => void }) {
         <button type="button" className="btn btn-primary" disabled={!selGym} onClick={() => selGym && confirm(selGym.id)}>{selGym ? `Continue at ${selGym.name}` : 'Pick a gym to continue'}</button>
       </div>
       {hint && (
-        <div className="toast" role="status"><span className="ic ic-info" aria-hidden="true" /><span className="grow">{ios ? 'Opens iOS Settings › Gym Tracker › Location' : "Open your phone's Settings, then this app's Location permission."}</span><button type="button" className="banner-act" onClick={() => setHint(false)}>OK</button></div>
+        <div className="toast" role="status"><span className="ic ic-info" aria-hidden="true" /><span className="grow">{ios ? 'Opens iOS Settings › Rep › Location' : "Open your phone's Settings, then this app's Location permission."}</span><button type="button" className="banner-act" onClick={() => setHint(false)}>OK</button></div>
       )}
     </div>
   );

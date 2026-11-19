@@ -54,7 +54,8 @@ export function buildApp(dbPath = process.env.GYM_DB ?? './data/gym.db') {
     await next();
     if (c.res.status !== 200 || c.res.headers.has('Cache-Control')) return;
     const p = new URL(c.req.url).pathname;
-    if (/^\/(fonts|img|icons)\//.test(p) || /\.(png|jpe?g|webp|avif|svg|ico|woff2?)$/.test(p)) c.header('Cache-Control', 'public, max-age=2592000, stale-while-revalidate=86400');
+    if (/\.[0-9a-f]{8}\.(webp|png|jpe?g|avif|svg)$/.test(p)) c.header('Cache-Control', 'public, max-age=31536000, immutable'); // content-hashed name: can never change
+    else if (/^\/(fonts|img|icons)\//.test(p) || /\.(png|jpe?g|webp|avif|svg|ico|woff2?)$/.test(p)) c.header('Cache-Control', 'public, max-age=2592000, stale-while-revalidate=86400');
     else if (/\.(css|js)$/.test(p)) c.header('Cache-Control', 'public, max-age=86400, stale-while-revalidate=86400');
   });
   app.use('/*', serveStatic({ root: LANDING }));

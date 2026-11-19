@@ -39,7 +39,7 @@ test.describe('manifest, icons, meta', () => {
     const res = await request.get(href!);
     expect(res.status()).toBe(200);
     const m = await res.json();
-    expect(m).toMatchObject({ name: 'Gym Tracker', short_name: 'Gym', display: 'standalone', orientation: 'portrait', scope: '/app/', start_url: '/app/?source=pwa', background_color: '#F3F2EF', theme_color: '#F3F2EF' });
+    expect(m).toMatchObject({ name: 'Rep', short_name: 'Rep', display: 'standalone', orientation: 'portrait', scope: '/app/', start_url: '/app/?source=pwa', background_color: '#F3F2EF', theme_color: '#F3F2EF' });
     // start_url must be inside scope or browsers ignore the scope
     expect(m.start_url.startsWith(m.scope)).toBe(true);
     expect(m.description).toBeTruthy();
@@ -83,7 +83,7 @@ test.describe('manifest, icons, meta', () => {
     expect(await meta('apple-mobile-web-app-title')).toBe('Gym');
     expect(await meta('theme-color')).toBe('#F3F2EF');
     expect(await page.locator('link[rel="apple-touch-icon"]').getAttribute('href')).toBe('/app/apple-touch-icon.png');
-    await expect(page).toHaveTitle('Gym Tracker');
+    await expect(page).toHaveTitle('Rep');
   });
 
   test('app height is 100dvh and safe-area insets are applied', async ({ page }) => {
@@ -141,7 +141,7 @@ test.describe('install sheet', () => {
     await fresh(page);
     await page.goto('');
     await expect(page).toHaveURL(/\/app\/install$/);
-    await expect(page.getByRole('heading', { name: 'Gym Tracker' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Rep' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Add it to your Home Screen' })).toBeVisible();
     await expect(page.getByText('Step 1 of 3 · detected Safari on iPhone')).toBeVisible();
     await expect(page.getByRole('button', { name: 'iPhone' })).toHaveAttribute('aria-pressed', 'true');

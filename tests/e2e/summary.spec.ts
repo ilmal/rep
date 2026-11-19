@@ -108,12 +108,12 @@ test.describe('install re-offer', () => {
   test('shown once after session 1 on mobile browser; dismiss persists', async ({ page }) => {
     await seed(page, { sessions: [mk('s1', 1, 0.01)] });
     await page.goto('session/summary/s1');
-    await expect(page.getByRole('region', { name: 'Install Gym Tracker' })).toBeVisible();
+    await expect(page.getByRole('region', { name: 'Install Rep' })).toBeVisible();
     await page.getByRole('button', { name: 'Not now' }).click();
-    await expect(page.getByRole('region', { name: 'Install Gym Tracker' })).toHaveCount(0);
+    await expect(page.getByRole('region', { name: 'Install Rep' })).toHaveCount(0);
     await page.reload();
     await expect(page.getByText('Session 1 done')).toBeVisible();
-    await expect(page.getByRole('region', { name: 'Install Gym Tracker' })).toHaveCount(0);
+    await expect(page.getByRole('region', { name: 'Install Rep' })).toHaveCount(0);
   });
   test('Install links to /install', async ({ page }) => {
     await seed(page, { sessions: [mk('s1', 1, 0.01)] });
@@ -125,14 +125,14 @@ test.describe('install re-offer', () => {
     await seed(page, { sessions: [mk('s1', 1, 3), mk('s2', 2, 0.01)] });
     await page.goto('session/summary/s2');
     await expect(page.getByText('Session 2 done')).toBeVisible();
-    await expect(page.getByRole('region', { name: 'Install Gym Tracker' })).toHaveCount(0);
+    await expect(page.getByRole('region', { name: 'Install Rep' })).toHaveCount(0);
   });
   test('not when already installed (standalone)', async ({ page }) => {
     await page.addInitScript(() => { const o = window.matchMedia.bind(window); window.matchMedia = (q: string) => (/display-mode: standalone/.test(q) ? ({ ...o(q), matches: true } as MediaQueryList) : o(q)); });
     await seed(page, { sessions: [mk('s1', 1, 0.01)] });
     await page.goto('session/summary/s1');
     await expect(page.getByText('Session 1 done')).toBeVisible();
-    await expect(page.getByRole('region', { name: 'Install Gym Tracker' })).toHaveCount(0);
+    await expect(page.getByRole('region', { name: 'Install Rep' })).toHaveCount(0);
   });
 });
 
@@ -140,7 +140,7 @@ test('not on desktop browser', async ({ page }) => {
   await seed(page, { sessions: [mk('s1', 1, 0.01)] });
   await page.goto('session/summary/s1');
   await expect(page.getByText('Session 1 done')).toBeVisible();
-  await expect(page.getByRole('region', { name: 'Install Gym Tracker' })).toHaveCount(0);
+  await expect(page.getByRole('region', { name: 'Install Rep' })).toHaveCount(0);
 });
 
 test('no horizontal overflow at 360px', async ({ page }) => {
